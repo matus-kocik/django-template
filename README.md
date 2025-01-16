@@ -48,16 +48,16 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 6. (Optional) Set up pre-commit hooks:
 
-    Set up hooks to check and format your code before commits:
+    Install pre-commit hooks to automatically check and format your code before each commit:
 
     ```bash
-    pre-commit install
+    poetry run pre-commit install
     ```
 
     To manually run all hooks on the entire codebase, use:
 
     ```bash
-    pre-commit run --all-files
+    poetry run pre-commit run --all-files
     ```
 
     These hooks will:
@@ -65,6 +65,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Sort imports with **isort**.
     - Lint and check code quality with **Ruff**.
     - Check for type correctness with **MyPy**.
+    - Run automated tests with **Pytest**.
 
 7. (Optional) Generate `requirements.txt`:
 
@@ -86,37 +87,58 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
+## 🧪 Running Tests
+
+To run all tests in the project, use:
+
+```bash
+poetry run pytest
+```
+
+Test File Structure
+
+Test files are located in the tests/ directory. Example:
+
+```plaintext
+tests/
+├── conftest.py        # Shared fixtures for tests
+├── test_sample.py     # Example test file
+```
+
+- conftest.py: Contains reusable fixtures for tests.
+- test_sample.py: A simple test file to demonstrate how tests are structured.
+
 ## 🛠 Tools and Dependencies
 
 ### Core Tools
 
-- **Python** - >=3.13.0  
+- **Python** - >=3.13.0
   [Documentation](https://docs.python.org/) | [GitHub](https://github.com/python/cpython)
-- **Django** - >=5.1.5, <6.0.0  
+- **Django** - >=5.1.5, <6.0.0
   [Documentation](https://docs.djangoproject.com/) | [GitHub](https://github.com/django/django)
-- **Poetry** - Manages dependencies and virtual environments.  
+- **Poetry** - Manages dependencies and virtual environments.
   [Documentation](https://python-poetry.org/docs/) | [GitHub](https://github.com/python-poetry/poetry)
 
 ### Development Tools
 
-- **Black** - Automatically formats your code for consistency.  
+- **Black** - Automatically formats your code for consistency.
   [Documentation](https://black.readthedocs.io/) | [GitHub](https://github.com/psf/black)
-- **Ruff** - A fast linter for code quality and style enforcement.  
+- **Ruff** - A fast linter for code quality and style enforcement.
   [Documentation](https://beta.ruff.rs/docs/) | [GitHub](https://github.com/astral-sh/ruff)
-- **isort** - Ensures imports are sorted and organized.  
+- **isort** - Ensures imports are sorted and organized.
   [Documentation](https://pycqa.github.io/isort/) | [GitHub](https://github.com/PyCQA/isort)
-- **pytest** - A testing framework for running unit tests.  
+- **pytest** - A testing framework for running unit tests.
   [Documentation](https://docs.pytest.org/) | [GitHub](https://github.com/pytest-dev/pytest)
-- **MyPy** - A static type checker to ensure type correctness.  
+- **MyPy** - A static type checker to ensure type correctness.
   [Documentation](https://mypy.readthedocs.io/) | [GitHub](https://github.com/python/mypy)
-- **Pre-commit hooks** - Automates running Black, Ruff, isort, and MyPy before commits.  
+- **Pre-commit hooks** - Automates running Black, Ruff, isort, and MyPy before commits.
   [Documentation](https://pre-commit.com/) | [GitHub](https://github.com/pre-commit/pre-commit)
 
 ## ⚙️ Configuration
 
 ### Python-decouple
 
-This template uses **Python-decouple** to manage environment variables. Create a `.env` file based on the provided `env.example` and update it with your specific settings (e.g., database name, secrets, etc.).  
+This template uses **Python-decouple** to manage environment variables. Create a `.env` file based on the provided `env.example` and update it with your specific settings (e.g., database name, secrets, etc.).
 [Documentation](https://github.com/henriquebastos/python-decouple)
 
 ### Tools Configuration

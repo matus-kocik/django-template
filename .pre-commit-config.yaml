@@ -1,7 +1,7 @@
 repos:
   # Pre-commit basic hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v5.0.0
     hooks:
       # Adds a new line at the end of files
       - id: end-of-file-fixer
@@ -36,7 +36,7 @@ repos:
 
   # MyPy - checks types
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.1.1
+    rev: v1.14.1
     hooks:
       # Checks for type errors in Python code
       - id: mypy
