@@ -15,39 +15,46 @@ jobs:
     runs-on: ubuntu-latest  # Use the latest Ubuntu environment
 
     steps:
-    # Step 1: Checkout the code
-    - name: Checkout Code
-      uses: actions/checkout@v3  # Action to clone the repository
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3  # Clone the repository
 
-    # Step 2: Set up Python
-    - name: Set up Python
-      uses: actions/setup-python@v4  # Action to install Python
-      with:
-        python-version: "3.13"  # Use Python version 3.13
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Install Python
+        with:
+          python-version: "3.13"  # Use Python version 3.13
 
-    # Step 3: Install dependencies
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip  # Upgrade pip to the latest version
-        pip install poetry  # Install Poetry for dependency management
-        poetry install --no-root  # Install dependencies without packaging the current project
+      # Step 3: Create .env file
+      - name: Create .env File
+        run: |
+          echo "SECRET_KEY=your-secret-key" > .env  # Replace with a secure value in production
+          echo "DEBUG=True" >> .env  # Enable debug mode for testing
+          echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env  # Define allowed hosts for Django
 
-    # # Step 4: Run Ruff (linter)
-    # - name: Run Ruff
-    #   run: poetry run ruff .  # Check the code for linting issues with Ruff
+      # Step 4: Install dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip  # Upgrade pip to the latest version
+          pip install poetry  # Install Poetry for dependency management
+          poetry install --no-root  # Install dependencies without packaging the project
 
-    # Step 5: Run Black (code formatter)
-    - name: Run Black (Check Mode)
-      run: poetry run black --check .  # Ensure code follows Black formatting
+      # Step 5: Run pre-commit hooks (optional)
+      - name: Run Pre-commit Hooks
+        run: poetry run pre-commit run --all-files  # Run pre-commit hooks across the codebase
 
-    # # Step 6: Run isort (import sorting)
-    # - name: Run isort (Check Mode)
-    #   run: poetry run isort --check-only .  # Check if imports are sorted correctly
+      # Step 6: Run Black (code formatter)
+      - name: Run Black (Check Mode)
+        run: poetry run black --check .  # Ensure code follows Black formatting
 
-    # # Step 7: Run MyPy (type checker)
-    # - name: Run MyPy
-    #   run: poetry run mypy .  # Check type annotations with MyPy
+      # Step 7: Run Ruff (linter)
+      - name: Run Ruff
+        run: poetry run ruff .  # Check for linting issues with Ruff
 
-    # # Step 8: Run Tests
-    # - name: Run Tests
-    #   run: poetry run pytest  # Run all tests using pytest
+      # Step 8: Run isort (import sorting)
+      - name: Run isort (Check Mode)
+        run: poetry run isort --check-only .  # Check if imports are sorted correctly
+
+      # Step 9: Run Django tests
+      - name: Run Django Tests
+        run: poetry run pytest  # Run all tests using pytest

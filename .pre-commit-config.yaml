@@ -15,28 +15,22 @@ repos:
       # Formats Python code automatically
       - id: black
 
-  # # isort - organizes imports
-  # - repo: https://github.com/PyCQA/isort
-  #   rev: 5.13.2
-  #   hooks:
-  #     # Sorts and organizes imports in Python files
-  #     - id: isort
+  # isort - organizes imports
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      # Sorts and organizes imports in Python files
+      - id: isort
 
-  # # Ruff - linter and formatter
-  # - repo: https://github.com/charliermarsh/ruff-pre-commit
-  #   rev: v0.9.2
-  #   hooks:
-  #     # Checks for coding issues
-  #     - id: ruff
-  #     # Formats code with Ruff
-  #     - id: ruff-format
-  #     # Fixes import issues
-  #     - id: ruff
-  #       args: [--select, I, --fix]
-
-  # # MyPy - checks types
-  # - repo: https://github.com/pre-commit/mirrors-mypy
-  #   rev: v1.14.1
-  #   hooks:
-  #     # Checks for type errors in Python code
-  #     - id: mypy
+  # Ruff - linter and formatter
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.9.2
+    hooks:
+      # Checks for coding issues
+      - id: ruff
+        args: ["--fix"]  # Automatically fixes issues when possible
+      # Formats code with Ruff
+      - id: ruff-format
+      # Fixes import issues only
+      - id: ruff
+        args: ["--select", "I", "--fix"]  # Ensures imports are sorted correctly

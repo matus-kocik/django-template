@@ -1,16 +1,17 @@
-[project]
+[tool.poetry]
 name = "django-template"  # Project name
 version = "0.1.0"         # Initial version of the project
 description = "A Django project template"  # Short description of the project
 authors = [
-    {name = "Matus Kocik", email = "matuskocik@gmail.com"}  # Author details
+    "Matus Kocik <matuskocik@gmail.com>"  # Author details
 ]
-license = {text = "MIT"}  # Project license type
+license = "MIT"  # Project license type
 readme = "README.md"      # Readme file for documentation
-requires-python = ">=3.13"  # Minimum required Python version
-dependencies = [
-    "django (>=5.1.5,<6.0.0)"  # Main project dependency (Django framework)
-]
+
+# Dependencies required for the project
+[tool.poetry.dependencies]
+python = ">=3.13"  # Minimum required Python version
+django = ">=5.1.5,<6.0.0"  # Django framework
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]  # Poetry's core dependency
@@ -21,11 +22,9 @@ build-backend = "poetry.core.masonry.api"  # Backend for build system
 black = "^24.10.0"  # Code formatter to enforce consistent style
 isort = "^5.13.2"   # Automatic sorting of imports
 ruff = "^0.9.2"     # Fast linter for Python
-mypy = "^1.14.1"
-django-stubs = "^5.1.2"
-pytest = "^8.3.4"
-pytest-django = "^4.9.0"
-pre-commit = "^4.0.1"
+pytest = "^8.3.4"        # Testing framework
+pytest-django = "^4.9.0" # Django-specific pytest extensions
+pre-commit = "^4.0.1"    # Pre-commit hook manager
 
 [tool.black]
 # Black configuration (code formatting)
@@ -36,7 +35,10 @@ line-length = 88  # Maximum line length, Black's default is 88.
 profile = "black"  # Adjust isort to work seamlessly with Black.
 
 [tool.ruff]
-# Ruff configuration (linting and style checking)
-line-length = 88    # Maximum line length, aligned with Black and isort.
+# Ruff configuration (general settings)
+line-length = 88  # Maximum line length, aligned with Black and isort.
+
+[tool.ruff.lint]
+# Settings related to linting and style enforcement
 select = ["E", "F", "I"]  # Check for errors (E), formatting (F), and imports (I).
-fixable = ["I"]     # Allow Ruff to fix import sorting if needed.
+fixable = ["I"]           # Allow Ruff to fix import sorting if needed.

@@ -11,7 +11,6 @@ A simple and ready-to-use template for starting new Django projects with modern 
 - **Ruff** - Provides fast linting and code style enforcement.
 - **isort** - Automatically organizes and sorts imports.
 - **pytest** - Enables writing and running unit tests efficiently.
-- **MyPy** - Validates type annotations in your code.
 - **VS Code Configuration** - Offers pre-configured settings for a seamless developer experience in Visual Studio Code.
 - **GitHub Actions** - Automates CI/CD workflows for testing, linting, and deployment.
 
@@ -27,8 +26,10 @@ A simple and ready-to-use template for starting new Django projects with modern 
 2. Install dependencies using Poetry:
 
     ```bash
-    poetry install
+    poetry install --no-root
     ```
+
+    **Note:** Use `poetry install --no-root` to skip installing the template as a package.
 
 3. Create a `.env` file from the example (copy env.example):
 
@@ -36,19 +37,16 @@ A simple and ready-to-use template for starting new Django projects with modern 
     cp .env.example .env
     ```
 
-4. Initialize a new Django project (replace *my_project* with your desired project name):
+4. Start the Django project:
 
-    ```bash
-    poetry run django-admin startproject my_project .
-    ```
-
-5. Start the development server:
+    The template includes a pre-configured Django project named `config`.
+    After installing dependencies, you can immediately start the development server:
 
     ```bash
     poetry run python manage.py runserver
     ```
 
-6. (Optional) Set up pre-commit hooks:
+5. (Optional) Set up pre-commit hooks:
 
     Install pre-commit hooks to automatically check and format your code before each commit:
 
@@ -63,13 +61,12 @@ A simple and ready-to-use template for starting new Django projects with modern 
     ```
 
     These hooks will:
-    - Format code with **Black**.
-    - Sort imports with **isort**.
-    - Lint and check code quality with **Ruff**.
-    - Check for type correctness with **MyPy**.
-    - Run automated tests with **Pytest**.
+   - Format code with **Black**.
+   - Sort imports with **isort**.
+   - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
+   - Run automated tests with **Pytest**.
 
-7. (Optional) Generate `requirements.txt`:
+6. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -89,13 +86,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-8. (Optional) Set up VS Code configuration:
+7. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-9. (Optional) Learn about the CI/CD Workflow:
+8. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
@@ -110,12 +107,11 @@ This template uses **GitHub Actions** to automate tasks like testing, linting, a
 2. **Run Black**
    Ensures code adheres to consistent formatting.
 3. **Run Ruff**
-   Checks code style and catches linting issues.
+   Ensures code style adherence and identifies linting issues.
+   Note: Ruff is now updated to use settings within the `[lint]` section of `pyproject.toml`.
 4. **Run isort**
    Verifies that all imports are correctly sorted.
-5. **Run MyPy**
-   Validates type annotations.
-6. **Run Pytest**
+5. **Run Pytest**
    Executes all unit tests.
 
 ### How to View CI/CD Status
@@ -205,8 +201,6 @@ This template includes optional configuration files for Visual Studio Code. Thes
   [Documentation](https://pycqa.github.io/isort/) | [GitHub](https://github.com/PyCQA/isort)
 - **pytest** - Framework for running unit tests.
   [Documentation](https://docs.pytest.org/) | [GitHub](https://github.com/pytest-dev/pytest)
-- **MyPy** - Checks for type correctness.
-  [Documentation](https://mypy.readthedocs.io/) | [GitHub](https://github.com/python/mypy)
 
 ### CI/CD Tools
 
@@ -243,30 +237,10 @@ profile = "black"
 ```toml
 [tool.ruff]
 line-length = 88
+
+[tool.ruff.lint]
 select = ["E", "F", "I"]  # Check for errors (E), formatting (F), and imports (I).
 fixable = ["I"]           # Allow Ruff to fix import sorting if needed.
-```
-
-#### **MyPy**
-
-This template includes a basic MyPy configuration file (mypy.ini):
-
-```ini
-[mypy]
-plugins =
-    mypy_django_plugin.main
-
-[mypy.plugins.django-stubs]
-django_settings_module = "my_project.settings"  # Replace 'my_project' with your project name
-
-[mypy-*.migrations.*]
-ignore_errors = True  # Ignore errors in Django migrations (auto-generated code)
-```
-
-To run MyPy checks:
-
-```bash
-poetry run mypy .
 ```
 
 ## 📄 License
