@@ -1,0 +1,53 @@
+name: CI/CD for Django Template
+
+# Define when this workflow runs
+on:
+  push:
+    branches:
+      - main  # Run on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Run on pull requests targeting the 'main' branch
+
+jobs:
+  test:
+    name: Run Tests and Linting  # Name of the job
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+
+    steps:
+    # Step 1: Checkout the code
+    - name: Checkout Code
+      uses: actions/checkout@v3  # Action to clone the repository
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v4  # Action to install Python
+      with:
+        python-version: "3.13"  # Use Python version 3.13
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip  # Upgrade pip to the latest version
+        pip install poetry  # Install Poetry for dependency management
+        poetry install  # Install project dependencies
+
+    # Step 4: Run Ruff (linter)
+    - name: Run Ruff
+      run: poetry run ruff .  # Check the code for linting issues with Ruff
+
+    # Step 5: Run Black (code formatter)
+    - name: Run Black (Check Mode)
+      run: poetry run black --check .  # Ensure code follows Black formatting
+
+    # Step 6: Run isort (import sorting)
+    - name: Run isort (Check Mode)
+      run: poetry run isort --check-only .  # Check if imports are sorted correctly
+
+    # Step 7: Run MyPy (type checker)
+    - name: Run MyPy
+      run: poetry run mypy .  # Check type annotations with MyPy
+
+    # Step 8: Run Tests
+    - name: Run Tests
+      run: poetry run pytest  # Run all tests using pytest
