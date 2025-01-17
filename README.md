@@ -4,15 +4,16 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 ## 🚀 Features
 
-- **Poetry** - For dependency management and virtual environments.
-- **Pre-commit hooks** - Automates code checks before each commit to maintain code quality.
-- **Python-decouple** - For managing environment variables securely and flexibly.
-- **Black** - Ensures consistent code formatting across the project.
-- **Ruff** - A fast linter to catch errors and enforce style guidelines.
+- **Poetry** - Simplifies dependency management and virtual environments.
+- **Pre-commit hooks** - Maintains code quality by running checks automatically before commits.
+- **Python-decouple** - Helps securely manage environment variables.
+- **Black** - Auto-formats code to follow consistent style.
+- **Ruff** - Provides fast linting and code style enforcement.
 - **isort** - Automatically organizes and sorts imports.
-- **pytest** - For running automated tests.
-- **MyPy** - Static type checker for Python.
-- **GitHub Actions** - For automated testing, linting, and continuous integration.
+- **pytest** - Enables writing and running unit tests efficiently.
+- **MyPy** - Validates type annotations in your code.
+- **VS Code Configuration** - Offers pre-configured settings for a seamless developer experience in Visual Studio Code.
+- **GitHub Actions** - Automates CI/CD workflows for testing, linting, and deployment.
 
 ## 📋 Usage
 
@@ -100,34 +101,29 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 ## Continuous Integration and Deployment (CI/CD)
 
-This template uses **GitHub Actions** to automate testing, linting, and dependency management for every `push` or `pull request` to the `main` branch.
+This template uses **GitHub Actions** to automate tasks like testing, linting, and dependency management for every `push` or `pull request` to the `main` branch.
 
-### Key Steps in the Workflow
+### Workflow Steps
 
-   1. **Install Dependencies**
-      Dependencies are installed using Poetry with the `--no-root` flag to skip packaging the template project itself.
+1. **Install Dependencies**
+   Installs dependencies using Poetry with the `--no-root` flag to avoid packaging the template itself.
+2. **Run Black**
+   Ensures code adheres to consistent formatting.
+3. **Run Ruff**
+   Checks code style and catches linting issues.
+4. **Run isort**
+   Verifies that all imports are correctly sorted.
+5. **Run MyPy**
+   Validates type annotations.
+6. **Run Pytest**
+   Executes all unit tests.
 
-   2. **Run Black**
-      Ensures the code adheres to Black’s formatting standards.
+### How to View CI/CD Status
 
-   3. **Run Ruff**
-      Checks the codebase for linting issues.
+1. Go to the **Actions** tab in this repository.
+2. Click on the latest workflow run for detailed logs and results.
 
-   4. **Run isort**
-      Ensures all imports are correctly sorted.
-
-   5. **Run MyPy**
-      Checks type annotations in the codebase.
-
-   6. **Run Pytest**
-      Executes all unit tests to ensure the project behaves as expected.
-
-### Viewing Workflow Status
-
-   1. Navigate to the **Actions** tab in the repository on GitHub.
-   2. Select the latest workflow run for detailed logs and results.
-
-If a workflow fails, the logs in **GitHub Actions** will help you diagnose the issue.
+If any step fails, logs in **GitHub Actions** will help you diagnose and fix the issue.
 
 ## 🧪 Running Tests
 
@@ -152,21 +148,41 @@ tests/
 
 ## Optional: VS Code Settings
 
-This template includes optional configuration files for Visual Studio Code. If you’re using VS Code, these files can streamline your setup:
+This template includes optional configuration files for Visual Studio Code. These files streamline your development workflow.
 
-- `.vscode/settings.json.example`: Configures auto-formatting and linting on save.
-- `.vscode/launch.json.example`: Prepares the debugger for Django.
+### Provided Files
 
-To use these files:
+- **`.vscode/settings.json.example`**
+  Enables auto-formatting and linting on save.
+- **`.vscode/launch.json.example`**
+  Configures the debugger for Django.
 
-1. Copy the examples to their respective locations:
+### How to Use
+
+1. Copy the example files:
 
     ```bash
     cp .vscode/settings.json.example .vscode/settings.json
     cp .vscode/launch.json.example .vscode/launch.json
     ```
 
-2. Adjust settings if needed to match your environment.
+2. Adjust settings to fit your environment.
+
+### Example Settings
+
+```json
+{
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
+```
 
 ## 🛠 Tools and Dependencies
 
@@ -181,20 +197,23 @@ To use these files:
 
 ### Development Tools
 
-- **Black** - Automatically formats your code for consistency.
+- **Black** - Formats code automatically.
   [Documentation](https://black.readthedocs.io/) | [GitHub](https://github.com/psf/black)
-- **Ruff** - A fast linter for code quality and style enforcement.
+- **Ruff** - A fast linter for code style and quality.
   [Documentation](https://beta.ruff.rs/docs/) | [GitHub](https://github.com/astral-sh/ruff)
-- **isort** - Ensures imports are sorted and organized.
+- **isort** - Sorts imports automatically.
   [Documentation](https://pycqa.github.io/isort/) | [GitHub](https://github.com/PyCQA/isort)
-- **pytest** - A testing framework for running unit tests.
+- **pytest** - Framework for running unit tests.
   [Documentation](https://docs.pytest.org/) | [GitHub](https://github.com/pytest-dev/pytest)
-- **MyPy** - A static type checker to ensure type correctness.
+- **MyPy** - Checks for type correctness.
   [Documentation](https://mypy.readthedocs.io/) | [GitHub](https://github.com/python/mypy)
-- **Pre-commit hooks** - Automates running Black, Ruff, isort, and MyPy before commits.
-  [Documentation](https://pre-commit.com/) | [GitHub](https://github.com/pre-commit/pre-commit)
-- **GitHub Actions** - Automates CI/CD processes.
+
+### CI/CD Tools
+
+- **GitHub Actions** - Automates workflows for testing, linting, and CI/CD.
   [Documentation](https://docs.github.com/en/actions) | [GitHub](https://github.com/features/actions)
+- **Pre-commit hooks** - Runs code checks automatically before commits.
+  [Documentation](https://pre-commit.com/) | [GitHub](https://github.com/pre-commit/pre-commit)
 
 ## ⚙️ Configuration
 
