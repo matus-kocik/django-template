@@ -16,14 +16,18 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 ## 📋 Usage
 
-1. Clone this repository:
+1. Use this template on GitHub:
+
+    You can create a new repository using this template by clicking the "Use this template" button on the GitHub page of this repository.
+
+2. Clone this repository:
 
     ```bash
     git clone https://github.com/matus-kocik/django-template.git
     cd django-template
     ```
 
-2. Install dependencies using Poetry:
+3. Install dependencies using Poetry:
 
     ```bash
     poetry install --no-root
@@ -31,13 +35,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     **Note:** Use `poetry install --no-root` to skip installing the template as a package.
 
-3. Create a `.env` file from the example (copy env.example):
+4. Create a `.env` file from the example (copy env.example):
 
     ```bash
     cp .env.example .env
     ```
 
-4. Generate a new secret key:
+5. Generate a new secret key:
 
     You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
 
@@ -51,19 +55,19 @@ A simple and ready-to-use template for starting new Django projects with modern 
     SECRET_KEY=your-new-secret-key
     ```
 
-5. Install pre-commit hooks:
+6. Install pre-commit hooks:
 
     ```bash
     poetry run pre-commit install
     ```
 
-6. Run pre-commit hooks on all files:
+7. Run pre-commit hooks on all files:
 
     ```bash
     poetry run pre-commit run --all-files
     ```
 
-7. Auto-update pre-commit hooks:
+8. Auto-update pre-commit hooks:
 
     To ensure you are using the latest versions of the pre-commit hooks, run:
 
@@ -71,16 +75,69 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run pre-commit autoupdate
     ```
 
-8. Start the Django project:
+9. Start the Django project:
 
     The template includes a pre-configured Django project named `config`.
-    After installing dependencies, you can immediately start the development server:
+
+10. Create a new app:
+
+    To create a new app, first create a folder named your new app in the `apps` folder. Then, with the `startapp` command, first give the app name and then the path to your app. For example, to create an app named `my_app`:
+
+    ```bash
+    mkdir apps/my_app
+    python manage.py startapp my_app apps/my_app
+    ```
+
+    **Note:** When adding your application to `INSTALLED_APPS`, use the name `apps.my_app` instead of `my_app`. You will also need to update the `name` field in the `apps.py` file in the app to `apps.my_app`.
+
+    ```python
+    # apps/my_app/apps.py
+    from django.apps import AppConfig
+
+    class MyAppConfig(AppConfig):
+        default_auto_field = 'django.db.models.BigAutoField'
+        name = 'apps.my_app'
+    ```
+
+11. Apply migrations:
+
+    After creating a new app and adding models, apply the migrations:
+
+    ```bash
+    poetry run python manage.py makemigrations
+    poetry run python manage.py migrate
+    ```
+
+12. Run the development server:
+
+    Start the Django development server:
 
     ```bash
     poetry run python manage.py runserver
     ```
 
-9. (Optional) Generate `requirements.txt`:
+13. (Optional) Set up pre-commit hooks:
+
+    Install pre-commit hooks to automatically check and format your code before each commit:
+
+    ```bash
+    poetry run pre-commit install
+    ```
+
+    To manually run all hooks on the entire codebase, use:
+
+    ```bash
+    poetry run pre-commit run --all-files
+    ```
+
+    These hooks will:
+
+    - Format code with **Black**.
+    - Sort imports with **isort**.
+    - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
+    - Run automated tests with **Pytest**.
+
+14. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -100,13 +157,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-10. (Optional) Set up VS Code configuration:
+15. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-11. (Optional) Learn about the CI/CD Workflow:
+16. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
