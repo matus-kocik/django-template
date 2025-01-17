@@ -25,29 +25,34 @@ jobs:
         with:
           python-version: "3.13"  # Use Python version 3.13
 
-      # Step 3: Install dependencies
+      # Step 3: Create .env file
+      - name: Create .env File
+        run: |
+          cp .env.example .env  # Copy .env.example to .env
+
+      # Step 4: Install dependencies
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip  # Upgrade pip to the latest version
           pip install poetry  # Install Poetry for dependency management
           poetry install --no-root  # Install dependencies without packaging the project
 
-      # Step 4: Run pre-commit hooks (optional)
+      # Step 5: Run pre-commit hooks (optional)
       - name: Run Pre-commit Hooks
         run: poetry run pre-commit run --all-files  # Run pre-commit hooks across the codebase
 
-      # Step 5: Run Black (code formatter)
+      # Step 6: Run Black (code formatter)
       - name: Run Black (Check Mode)
         run: poetry run black --check .  # Ensure code follows Black formatting
 
-      # Step 6: Run Ruff (linter)
+      # Step 7: Run Ruff (linter)
       - name: Run Ruff
         run: poetry run ruff check .  # Corrected command for Ruff
 
-      # Step 7: Run isort (import sorting)
+      # Step 8: Run isort (import sorting)
       - name: Run isort (Check Mode)
         run: poetry run isort --check-only .  # Check if imports are sorted correctly
 
-      # Step 8: Run Django tests
+      # Step 9: Run Django tests
       - name: Run Django Tests
         run: poetry run pytest  # Run all tests using pytest

@@ -12,6 +12,7 @@ readme = "README.md"      # Readme file for documentation
 [tool.poetry.dependencies]
 python = ">=3.13"  # Minimum required Python version
 django = ">=5.1.5,<6.0.0"  # Django framework
+python-decouple = "^3.8"  # Manage environment variables securely
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]  # Poetry's core dependency

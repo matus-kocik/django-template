@@ -37,7 +37,21 @@ A simple and ready-to-use template for starting new Django projects with modern 
     cp .env.example .env
     ```
 
-4. Start the Django project:
+4. Generate a new secret key:
+
+    You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
+
+    ```bash
+    poetry run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    ```
+
+    This command will generate a new secret key each time it is run. Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
+
+    ```env
+    SECRET_KEY=your-new-secret-key
+    ```
+
+5. Start the Django project:
 
     The template includes a pre-configured Django project named `config`.
     After installing dependencies, you can immediately start the development server:
@@ -46,7 +60,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python manage.py runserver
     ```
 
-5. (Optional) Set up pre-commit hooks:
+6. (Optional) Set up pre-commit hooks:
 
     Install pre-commit hooks to automatically check and format your code before each commit:
 
@@ -66,7 +80,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
    - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
    - Run automated tests with **Pytest**.
 
-6. (Optional) Generate `requirements.txt`:
+7. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -86,13 +100,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-7. (Optional) Set up VS Code configuration:
+8. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-8. (Optional) Learn about the CI/CD Workflow:
+9. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
@@ -215,6 +229,15 @@ This template includes optional configuration files for Visual Studio Code. Thes
 
 This template uses **Python-decouple** to manage environment variables. Create a `.env` file based on the provided `env.example` and update it with your specific settings (e.g., database name, secrets, etc.).
 [Documentation](https://github.com/henriquebastos/python-decouple)
+
+#### Example `.env` file
+
+```plaintext
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_URL=sqlite:///db.sqlite3
+```
 
 ### Tools Configuration
 
