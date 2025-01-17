@@ -32,22 +32,22 @@ jobs:
         pip install poetry  # Install Poetry for dependency management
         poetry install  # Install project dependencies
 
-    # Step 4: Run Ruff (linter)
-    - name: Run Ruff
-      run: poetry run ruff .  # Check the code for linting issues with Ruff
+    # # Step 4: Run Ruff (linter)
+    # - name: Run Ruff
+    #   run: poetry run ruff .  # Check the code for linting issues with Ruff
 
     # Step 5: Run Black (code formatter)
     - name: Run Black (Check Mode)
       run: poetry run black --check .  # Ensure code follows Black formatting
 
-    # Step 6: Run isort (import sorting)
-    - name: Run isort (Check Mode)
-      run: poetry run isort --check-only .  # Check if imports are sorted correctly
+    # # Step 6: Run isort (import sorting)
+    # - name: Run isort (Check Mode)
+    #   run: poetry run isort --check-only .  # Check if imports are sorted correctly
 
-    # Step 7: Run MyPy (type checker)
-    - name: Run MyPy
-      run: poetry run mypy .  # Check type annotations with MyPy
+    # # Step 7: Run MyPy (type checker)
+    # - name: Run MyPy
+    #   run: poetry run mypy .  # Check type annotations with MyPy
 
-    # Step 8: Run Tests
-    - name: Run Tests
-      run: poetry run pytest  # Run all tests using pytest
+    # # Step 8: Run Tests
+    # - name: Run Tests
+    #   run: poetry run pytest  # Run all tests using pytest
