@@ -42,7 +42,7 @@ jobs:
 
       # Step 6: Run Ruff (linter)
       - name: Run Ruff
-        run: poetry run ruff .  # Check for linting issues with Ruff
+        run: poetry run ruff check .  # Corrected command for Ruff
 
       # Step 7: Run isort (import sorting)
       - name: Run isort (Check Mode)
