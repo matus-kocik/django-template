@@ -51,7 +51,27 @@ A simple and ready-to-use template for starting new Django projects with modern 
     SECRET_KEY=your-new-secret-key
     ```
 
-5. Start the Django project:
+5. Install pre-commit hooks:
+
+    ```bash
+    poetry run pre-commit install
+    ```
+
+6. Run pre-commit hooks on all files:
+
+    ```bash
+    poetry run pre-commit run --all-files
+    ```
+
+7. Auto-update pre-commit hooks:
+
+    To ensure you are using the latest versions of the pre-commit hooks, run:
+
+    ```bash
+    poetry run pre-commit autoupdate
+    ```
+
+8. Start the Django project:
 
     The template includes a pre-configured Django project named `config`.
     After installing dependencies, you can immediately start the development server:
@@ -60,27 +80,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python manage.py runserver
     ```
 
-6. (Optional) Set up pre-commit hooks:
-
-    Install pre-commit hooks to automatically check and format your code before each commit:
-
-    ```bash
-    poetry run pre-commit install
-    ```
-
-    To manually run all hooks on the entire codebase, use:
-
-    ```bash
-    poetry run pre-commit run --all-files
-    ```
-
-    These hooks will:
-   - Format code with **Black**.
-   - Sort imports with **isort**.
-   - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
-   - Run automated tests with **Pytest**.
-
-7. (Optional) Generate `requirements.txt`:
+9. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -100,13 +100,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-8. (Optional) Set up VS Code configuration:
+10. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-9. (Optional) Learn about the CI/CD Workflow:
+11. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
