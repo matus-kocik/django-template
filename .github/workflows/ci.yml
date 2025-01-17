@@ -30,7 +30,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip  # Upgrade pip to the latest version
         pip install poetry  # Install Poetry for dependency management
-        poetry install  # Install project dependencies
+        poetry install --no-root  # Install dependencies without packaging the current project
 
     # # Step 4: Run Ruff (linter)
     # - name: Run Ruff
