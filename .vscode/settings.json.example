@@ -1,0 +1,11 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff", // Set Ruff as the default formatter
+        "editor.formatOnSave": true, // Auto-format on save
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit" // Auto-organize imports on save (use explicit setting)
+        }
+    },
+    "python.testing.unittestEnabled": false, // Disable unittest framework
+    "python.testing.pytestEnabled": true // Enable pytest for testing
+}

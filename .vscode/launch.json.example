@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django", // Label for the configuration
+            "type": "debugpy", // Type of debugger
+            "request": "launch", // Launch mode (vs. "attach")
+            "program": "${workspaceFolder}/manage.py", // Main program to run
+            "args": [
+                "runserver"
+            ], // Arguments for the program
+            "django": true, // Enable Django-specific features
+            "justMyCode": true // Debug only user code, not library code
+        }
+    ]
+}

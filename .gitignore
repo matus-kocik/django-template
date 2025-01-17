@@ -579,9 +579,13 @@ pip-selfcheck.json
 
 ### VisualStudioCode ###
 .vscode/*
-!.vscode/settings.json
+
+# Allow specific configuration and example files
+!.vscode/settings.json.example
+!.vscode/launch.json.example
+
+# Ignore personal configuration files, but allow examples
 !.vscode/tasks.json
-!.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
 

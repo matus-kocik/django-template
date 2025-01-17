@@ -87,6 +87,12 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
+8. (Optional) Set up VS Code configuration:
+
+    If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
+
+    See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
+
 ## 🧪 Running Tests
 
 To run all tests in the project, use:
@@ -107,6 +113,24 @@ tests/
 
 - conftest.py: Contains reusable fixtures for tests.
 - test_sample.py: A simple test file to demonstrate how tests are structured.
+
+## Optional: VS Code Settings
+
+This template includes optional configuration files for Visual Studio Code. If you’re using VS Code, these files can streamline your setup:
+
+- `.vscode/settings.json.example`: Configures auto-formatting and linting on save.
+- `.vscode/launch.json.example`: Prepares the debugger for Django.
+
+To use these files:
+
+1. Copy the examples to their respective locations:
+
+    ```bash
+    cp .vscode/settings.json.example .vscode/settings.json
+    cp .vscode/launch.json.example .vscode/launch.json
+    ```
+
+2. Adjust settings if needed to match your environment.
 
 ## 🛠 Tools and Dependencies
 
