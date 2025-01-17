@@ -12,6 +12,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 - **isort** - Automatically organizes and sorts imports.
 - **pytest** - For running automated tests.
 - **MyPy** - Static type checker for Python.
+- **GitHub Actions** - For automated testing, linting, and continuous integration.
 
 ## 📋 Usage
 
@@ -93,6 +94,41 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
+9. (Optional) Learn about the CI/CD Workflow:
+
+    See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
+
+## Continuous Integration and Deployment (CI/CD)
+
+This template uses **GitHub Actions** to automate testing, linting, and dependency management for every `push` or `pull request` to the `main` branch.
+
+### Key Steps in the Workflow
+
+   1. **Install Dependencies**
+      Dependencies are installed using Poetry with the `--no-root` flag to skip packaging the template project itself.
+
+   2. **Run Black**
+      Ensures the code adheres to Black’s formatting standards.
+
+   3. **Run Ruff**
+      Checks the codebase for linting issues.
+
+   4. **Run isort**
+      Ensures all imports are correctly sorted.
+
+   5. **Run MyPy**
+      Checks type annotations in the codebase.
+
+   6. **Run Pytest**
+      Executes all unit tests to ensure the project behaves as expected.
+
+### Viewing Workflow Status
+
+   1. Navigate to the **Actions** tab in the repository on GitHub.
+   2. Select the latest workflow run for detailed logs and results.
+
+If a workflow fails, the logs in **GitHub Actions** will help you diagnose the issue.
+
 ## 🧪 Running Tests
 
 To run all tests in the project, use:
@@ -157,6 +193,8 @@ To use these files:
   [Documentation](https://mypy.readthedocs.io/) | [GitHub](https://github.com/python/mypy)
 - **Pre-commit hooks** - Automates running Black, Ruff, isort, and MyPy before commits.
   [Documentation](https://pre-commit.com/) | [GitHub](https://github.com/pre-commit/pre-commit)
+- **GitHub Actions** - Automates CI/CD processes.
+  [Documentation](https://docs.github.com/en/actions) | [GitHub](https://github.com/features/actions)
 
 ## ⚙️ Configuration
 
