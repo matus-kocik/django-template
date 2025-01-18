@@ -83,18 +83,18 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run pre-commit install
     ```
 
-8. Run pre-commit hooks on all files:
-
-    ```bash
-    poetry run pre-commit run --all-files
-    ```
-
-9. Auto-update pre-commit hooks:
+8. Auto-update pre-commit hooks:
 
     To ensure you are using the latest versions of the pre-commit hooks, run:
 
     ```bash
     poetry run pre-commit autoupdate
+    ```
+
+9. Run pre-commit hooks on all files:
+
+    ```bash
+    poetry run pre-commit run --all-files
     ```
 
 10. Start the Django project:
