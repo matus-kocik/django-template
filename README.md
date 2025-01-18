@@ -35,13 +35,35 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     **Note:** Use `poetry install --no-root` to skip installing the template as a package.
 
-4. Create a `.env` file from the example (copy env.example):
+4. **Check Python Interpreter and Environment**
+
+    After installing dependencies, verify that the correct Python interpreter is being used and that the Poetry environment is properly configured.
+
+    To check your Python version:
+
+    ```bash
+    python --version
+    ```
+
+    To check the Poetry environment and interpreter:
+
+    ```bash
+    poetry env info
+    ```
+
+    Ensure that the `Executable` path points to the Python interpreter inside your Poetry-managed virtual environment. If not, activate the correct environment:
+
+    ```bash
+    poetry env use <path-to-python>
+    ```
+
+5. Create a `.env` file from the example (copy env.example):
 
     ```bash
     cp .env.example .env
     ```
 
-5. Generate a new secret key:
+6. Generate a new secret key:
 
     You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
 
@@ -55,19 +77,19 @@ A simple and ready-to-use template for starting new Django projects with modern 
     SECRET_KEY=your-new-secret-key
     ```
 
-6. Install pre-commit hooks:
+7. Install pre-commit hooks:
 
     ```bash
     poetry run pre-commit install
     ```
 
-7. Run pre-commit hooks on all files:
+8. Run pre-commit hooks on all files:
 
     ```bash
     poetry run pre-commit run --all-files
     ```
 
-8. Auto-update pre-commit hooks:
+9. Auto-update pre-commit hooks:
 
     To ensure you are using the latest versions of the pre-commit hooks, run:
 
@@ -75,11 +97,11 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run pre-commit autoupdate
     ```
 
-9. Start the Django project:
+10. Start the Django project:
 
     The template includes a pre-configured Django project named `src/config`.
 
-10. Create a new app:
+11. Create a new app:
 
     To create a new app, use the `startapp` command and specify the app name and its location within the `src/apps` directory. For example, to create an app named `my_app`:
 
@@ -99,7 +121,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
         name = 'apps.my_app'
     ```
 
-11. Apply migrations:
+12. Apply migrations:
 
     After creating a new app and adding models, apply the migrations:
 
@@ -108,7 +130,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python src/manage.py migrate
     ```
 
-12. Run the development server:
+13. Run the development server:
 
     Start the Django development server:
 
@@ -116,7 +138,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python src/manage.py runserver
     ```
 
-13. (Optional) Set up pre-commit hooks:
+14. (Optional) Set up pre-commit hooks:
 
     Install pre-commit hooks to automatically check and format your code before each commit:
 
@@ -137,7 +159,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
     - Run automated tests with **Pytest**.
 
-14. (Optional) Generate `requirements.txt`:
+15. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -157,13 +179,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-15. (Optional) Set up VS Code configuration:
+16. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-16. (Optional) Learn about the CI/CD Workflow:
+17. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
