@@ -77,21 +77,21 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 9. Start the Django project:
 
-    The template includes a pre-configured Django project named `config`.
+    The template includes a pre-configured Django project named `src/config`.
 
 10. Create a new app:
 
-    To create a new app, first create a folder named your new app in the `apps` folder. Then, with the `startapp` command, first give the app name and then the path to your app. For example, to create an app named `my_app`:
+    To create a new app, use the `startapp` command and specify the app name and its location within the `src/apps` directory. For example, to create an app named `my_app`:
 
     ```bash
-    mkdir apps/my_app
-    python manage.py startapp my_app apps/my_app
+    mkdir src/apps/my_app
+    poetry run python src/manage.py startapp my_app src/apps/my_app
     ```
 
-    **Note:** When adding your application to `INSTALLED_APPS`, use the name `apps.my_app` instead of `my_app`. You will also need to update the `name` field in the `apps.py` file in the app to `apps.my_app`.
+    **Note:** When adding your application to `INSTALLED_APPS` in the project settings `(src/config/settings.py)`, include the full path to the app, such as `apps.my_app`. Additionally, ensure the name attribute in the app’s `apps.py` file reflects the correct path. Update it as follows:
 
     ```python
-    # apps/my_app/apps.py
+    # src/apps/my_app/apps.py
     from django.apps import AppConfig
 
     class MyAppConfig(AppConfig):
@@ -104,8 +104,8 @@ A simple and ready-to-use template for starting new Django projects with modern 
     After creating a new app and adding models, apply the migrations:
 
     ```bash
-    poetry run python manage.py makemigrations
-    poetry run python manage.py migrate
+    poetry run python src/manage.py makemigrations
+    poetry run python src/manage.py migrate
     ```
 
 12. Run the development server:
@@ -113,7 +113,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     Start the Django development server:
 
     ```bash
-    poetry run python manage.py runserver
+    poetry run python src/manage.py runserver
     ```
 
 13. (Optional) Set up pre-commit hooks:
