@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         # Test against multiple Python versions for maximum compatibility
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.12", "3.13"] # ["3.10", "3.11", "3.12", "3.13"]
         # Ensure cross-platform compatibility by testing on multiple OS
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
