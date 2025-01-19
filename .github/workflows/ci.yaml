@@ -13,17 +13,14 @@ jobs:
   test:
     strategy:
       matrix:
-        # Test against multiple Python versions for maximum compatibility
-        python-version: ["3.12", "3.13"] # ["3.10", "3.11", "3.12", "3.13"]
-        # Ensure cross-platform compatibility by testing on multiple OS
+        python-version: ["3.12", "3.13"]
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
-    name: Run Tests and Linting on ${{ matrix.os }} with Python ${{ matrix.python-version }} # Name the job
-    runs-on: ${{ matrix.os }}  # Use the operating system defined in the matrix
+    runs-on: ${{ matrix.os }}
 
     services:
       db:
-        image: postgres:15-alpine # Use PostgreSQL 15 with Alpine image for smaller size
+        image: postgres:15-alpine
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -34,14 +31,34 @@ jobs:
     steps:
       # Clone repository for access to codebase
       - name: Checkout Code
-        uses: actions/checkout@v3  # Clone the repository
+        uses: actions/checkout@v3
+
+      # Add Docker installation step for macOS and Windows runners
+      - name: Set up Docker (for macOS and Windows)
+        if: runner.os == 'macOS' || runner.os == 'Windows'
+        run: |
+          echo "Installing Docker..."
+          # Docker installation commands for macOS and Windows
+          # For macOS, using Homebrew
+          if [ $RUNNER_OS == 'macOS' ]; then
+            brew install --cask docker
+            open /Applications/Docker.app
+            sleep 15  # Wait for Docker to start
+          fi
+          # For Windows, using Chocolatey
+          if [ $RUNNER_OS == 'Windows' ]; then
+            choco install docker-desktop
+            Start-Process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+            Start-Sleep -Seconds 30
+          fi
 
       # Configure Python environment with specified version
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}  # Use the Python version defined in the matrix
+          python-version: ${{ matrix.python-version }}
 
+      # Set Environment Variables
       - name: Set Environment Variables
         run: |
           echo "DB_ENGINE=django.db.backends.postgresql" >> .env
@@ -63,26 +80,26 @@ jobs:
       # Set up project dependencies
       - name: Install Dependencies
         run: |
-          python -m pip install --upgrade pip  # Upgrade pip to the latest version
-          pip install poetry  # Install Poetry for dependency management
-          poetry install --no-root  # Install dependencies without packaging the project
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-root
 
       # Run code quality checks
       - name: Run Pre-commit Hooks
-        run: poetry run pre-commit run --all-files  # Run pre-commit hooks across the codebase
+        run: poetry run pre-commit run --all-files
 
       # Check code formatting
       - name: Run Black (Check Mode)
-        run: poetry run black --check .  # Ensure code follows Black formatting
+        run: poetry run black --check .
 
       # Run code linting
       - name: Run Ruff
-        run: poetry run ruff check .  # Run Ruff linter for code quality
+        run: poetry run ruff check .
 
       # Check import ordering
       - name: Run isort (Check Mode)
-        run: poetry run isort --check-only .  # Verify import sorting without modifying files
+        run: poetry run isort --check-only .
 
       # Execute Django test suite
       - name: Run Django Tests
-        run: poetry run pytest  # Run tests using pytest framework
+        run: poetry run pytest
