@@ -21,6 +21,16 @@ jobs:
     name: Run Tests and Linting on ${{ matrix.os }} with Python ${{ matrix.python-version }} # Name the job
     runs-on: ${{ matrix.os }}  # Use the operating system defined in the matrix
 
+    services:
+      db:
+        image: postgres:15-alpine # Use PostgreSQL 15 with Alpine image for smaller size
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+
     steps:
       # Clone repository for access to codebase
       - name: Checkout Code
@@ -28,18 +38,18 @@ jobs:
 
       # Configure Python environment with specified version
       - name: Set up Python
-        uses: actions/setup-python@v4  # Install Python
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}  # Use the Python version defined in the matrix
 
-      # Create environment configuration file
       - name: Set Environment Variables
-        shell: bash
         run: |
-          echo "ALLOWED_HOSTS=127.0.0.1,localhost" >> .env
-          echo "SECRET_KEY=dummy-secret-key" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-          echo "DEBUG=False" >> .env
+          echo "DB_ENGINE=django.db.backends.postgresql" >> .env
+          echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "DB_HOST=db" >> .env
+          echo "DB_PORT=5432" >> .env
 
       # Cache Poetry dependencies for faster builds
       - name: Cache Poetry Dependencies
@@ -71,7 +81,7 @@ jobs:
 
       # Check import ordering
       - name: Run isort (Check Mode)
-        run: poetry run isort --check-only .  # Verify import sorting
+        run: poetry run isort --check-only .  # Verify import sorting without modifying files
 
       # Execute Django test suite
       - name: Run Django Tests

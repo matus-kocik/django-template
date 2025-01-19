@@ -22,19 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config(
-    "SECRET_KEY",
-    default="django-insecure-^hbj@9p8#ae3)7x*i&oa(!@k+3o@s)otz(l66#1)233uxis#z(",
-)
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=True)
 
-ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS",
-    default="localhost,127.0.0.1",
-    cast=lambda v: [s.strip() for s in v.split(",")],
-)
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: v.split(","))
 # Application definition
 
 INSTALLED_APPS = [
@@ -91,7 +84,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -128,13 +120,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Static files
-STATIC_URL = config("STATIC_URL", default="/static/")
-STATIC_ROOT = config("STATIC_ROOT", default="staticfiles/")
+# Static and media files
+STATIC_URL = "/static/"
+STATIC_ROOT = "staticfiles/"
 
-# Media files
-MEDIA_URL = config("MEDIA_URL", default="/media/")
-MEDIA_ROOT = config("MEDIA_ROOT", default="media/")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

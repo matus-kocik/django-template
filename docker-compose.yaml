@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: django_postgres             # Optional: Name the container
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"               # Map PostgreSQL port to host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data      # Persistent storage for the database
+
+volumes:
+  postgres_data:
