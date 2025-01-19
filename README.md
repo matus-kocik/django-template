@@ -57,13 +57,39 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry env use <path-to-python>
     ```
 
-5. Create a `.env` file from the example (copy env.example):
+5. Create a `.env` file from the example:
+
+    For local development, create a `.env` file by copying the provided `.env.example`:
 
     ```bash
     cp .env.example .env
     ```
 
-6. Generate a new secret key:
+    Customize the `.env` file with your specific settings. The `.env.example` file provides default values as a starting point.
+
+    **Important:** Ensure `.env` is listed in your `.gitignore` file to avoid committing sensitive information.
+
+6. **GitHub Actions Secrets:**
+
+    For CI/CD workflows, you need to set up secrets in GitHub Actions to avoid exposing sensitive information. Add the following secrets in your repository's **Settings > Secrets and variables > Actions > Secrets**:
+
+    - `SECRET_KEY`
+    - `DATABASE_URL`
+    - Any other necessary environment variables.
+
+    Update your `.github/workflows/ci.yml` file to use these secrets.
+    For example:
+
+    ```yaml
+    - name: Set Environment Variables from Secrets
+      run: |
+        echo "SECRET_KEY=dummy-secret-key" >> .env # Using dummy value for CI/CD later on set it to ${{ secrets.SECRET_KEY }}
+        echo "ALLOWED_HOSTS=127.0.0.1,localhost" >> .env # Set ALLOWED_HOSTS for production environment later on set it to ${{ secrets.ALLOWED_HOSTS }}
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env # Set DATABASE_URL from GitHub Secrets
+        echo "DEBUG=False" >> .env  # Set DEBUG for production
+    ```
+
+7. Generate a new SECRET_KEY:
 
     You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
 
@@ -77,13 +103,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     SECRET_KEY=your-new-secret-key
     ```
 
-7. Install pre-commit hooks:
+8. Install pre-commit hooks:
 
     ```bash
     poetry run pre-commit install
     ```
 
-8. Auto-update pre-commit hooks:
+9. Auto-update pre-commit hooks:
 
     To ensure you are using the latest versions of the pre-commit hooks, run:
 
@@ -91,17 +117,17 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run pre-commit autoupdate
     ```
 
-9. Run pre-commit hooks on all files:
+10. Run pre-commit hooks on all files:
 
     ```bash
     poetry run pre-commit run --all-files
     ```
 
-10. Start the Django project:
+11. Start the Django project:
 
     The template includes a pre-configured Django project named `src/config`.
 
-11. Create a new app:
+12. Create a new app:
 
     To create a new app, use the `startapp` command and specify the app name and its location within the `src/apps` directory. For example, to create an app named `my_app`:
 
@@ -121,7 +147,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
         name = 'apps.my_app'
     ```
 
-12. Apply migrations:
+13. Apply migrations:
 
     After creating a new app and adding models, apply the migrations:
 
@@ -130,7 +156,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python src/manage.py migrate
     ```
 
-13. Run the development server:
+14. Run the development server:
 
     Start the Django development server:
 
@@ -138,7 +164,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     poetry run python src/manage.py runserver
     ```
 
-14. (Optional) Set up pre-commit hooks:
+15. (Optional) Set up pre-commit hooks:
 
     Install pre-commit hooks to automatically check and format your code before each commit:
 
@@ -159,7 +185,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Lint and ensure code quality using **Ruff** (configured via `[lint]` section).
     - Run automated tests with **Pytest**.
 
-15. (Optional) Generate `requirements.txt`:
+16. (Optional) Generate `requirements.txt`:
 
     If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
 
@@ -179,13 +205,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
     - Use `requirements.txt` if deploying to platforms that don't support Poetry.
     - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
 
-16. (Optional) Set up VS Code configuration:
+17. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, you can set up recommended settings for formatting, linting, and debugging.
 
     See the [Optional: VS Code Settings](#optional-vs-code-settings) section for more details.
 
-17. (Optional) Learn about the CI/CD Workflow:
+18. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
@@ -213,6 +239,29 @@ This template uses **GitHub Actions** to automate tasks like testing, linting, a
 2. Click on the latest workflow run for detailed logs and results.
 
 If any step fails, logs in **GitHub Actions** will help you diagnose and fix the issue.
+
+### Managing `.env` in CI/CD
+
+To securely manage environment variables required by your workflow, use **GitHub Secrets**. Secrets ensure that sensitive information, such as API keys and database URLs, is not exposed in your version control.
+
+1. Set up the necessary secrets in your repository's **Settings > Secrets and variables > Actions > Secrets**.
+   Add the following secrets:
+   - `SECRET_KEY`
+   - `DATABASE_URL`
+   - Any other necessary variables.
+
+2. Update your workflow file to reference these secrets and dynamically create a `.env` file during the workflow execution. For example:
+
+    ```yaml
+    - name: Set Environment Variables from Secrets
+      run: |
+        echo "SECRET_KEY=dummy-secret-key" >> .env # Using dummy value for CI/CD later on set it to ${{ secrets.SECRET_KEY }}
+        echo "ALLOWED_HOSTS=127.0.0.1,localhost" >> .env # Set ALLOWED_HOSTS for production environment later on set it to ${{ secrets.ALLOWED_HOSTS }}
+        echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env # Set DATABASE_URL from GitHub Secrets
+        echo "DEBUG=False" >> .env  # Set DEBUG for production
+    ```
+
+**Note:** Avoid committing the `.env` file or any sensitive data directly to version control. Use **GitHub Secrets** for secure storage and injection during workflows.
 
 ## 🧪 Running Tests
 
