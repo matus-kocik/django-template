@@ -33,7 +33,8 @@ jobs:
             start-process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
             sleep 15
           fi
-          docker --version
+          docker --version  # Verify Docker installation
+          docker info       # Check Docker status
 
       # Clone repository for access to codebase
       - name: Checkout Code
