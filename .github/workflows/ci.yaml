@@ -13,29 +13,22 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.12", "3.13"]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+        os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
-    steps:
-      # Install Docker to macOS and Win
-      - name: Install Docker on macOS and Windows
-        if: runner.os == 'macOS' || runner.os == 'Windows'
-        run: |
-          if [ $RUNNER_OS == 'macOS' ]; then
-            brew install --cask docker
-            open --background -a Docker
-            sleep 15
-          fi
-          if [ $RUNNER_OS == 'Windows' ]; then
-            choco install docker-desktop
-            start-process "C:\Program Files\Docker\Docker\Docker Desktop.exe"
-            sleep 15
-          fi
-          docker --version  # Verify Docker installation
-          docker info       # Check Docker status
+    services:
+      db:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
 
+    steps:
       # Clone repository for access to codebase
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -91,14 +84,3 @@ jobs:
       # Execute Django test suite
       - name: Run Django Tests
         run: poetry run pytest
-
-    # Define services (PostgreSQL)
-    services:
-      db:
-        image: postgres:15-alpine
-        env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-        ports:
-          - 5432:5432
