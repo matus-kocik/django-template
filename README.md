@@ -4,6 +4,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 ## 🚀 Features
 
+- **Django** - The web framework for building modern web applications quickly and easily.
 - **Poetry** - Simplifies dependency management and virtual environments.
 - **Pre-commit hooks** - Maintains code quality by running checks automatically before commits.
 - **Python-decouple** - Helps securely manage environment variables for different environments.
