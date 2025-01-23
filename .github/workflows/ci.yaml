@@ -13,14 +13,14 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.13"]  # Specify Python version(s) to test
-        os: [ubuntu-latest]       # Specify OS environment (Ubuntu in this case)
+        python-version: ["3.13"] # Specify Python version(s) to test
+        os: [ubuntu-latest] # Specify OS environment (Ubuntu in this case)
 
     runs-on: ${{ matrix.os }}
 
     services:
       db:
-        image: postgres:15-alpine  # Use PostgreSQL 15 with Alpine base image
+        image: postgres:15-alpine # Use PostgreSQL 15 with Alpine base image
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Set Environment Variables for Django and PostgreSQL
+      # Set Environment Variables
       - name: Set Environment Variables
         run: |
           echo "DB_ENGINE=django.db.backends.postgresql" >> .env
@@ -58,43 +58,41 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-uv-
 
-      # Install UV Astral to manage the project
+      # Set up project dependencies using UV Astral
       - name: Install UV Astral
         run: |
           python -m pip install --upgrade pip
           pip install uv
 
-      # Create and Use Virtual Environment with UV Astral
       - name: Create and Use Virtual Environment
         run: |
           uv venv create
           uv venv use
 
-      # Sync dependencies with uv.lock if it exists
+      # Sync dependencies with uv.lock (optional step)
       - name: Sync Dependencies with uv.lock
-        if: ${{ inputs.fileExists('uv.lock') }}  # Optional, checks if uv.lock exists
         run: uv sync
 
-      # Install Dependencies for Development
+      # Install Dependencies from requirements-dev.txt
       - name: Install Development Dependencies
         run: uv pip install --requirement requirements-dev.txt
 
-      # Run Pre-commit Hooks to Ensure Code Quality
+      # Run pre-commit hooks
       - name: Run Pre-commit Hooks
-        run: uv run pre-commit run --all-files
+        run: uv run precommit run --all-files
 
-      # Check Python Code Formatting with Black
+      # Check code formatting
       - name: Run Black (Check Mode)
         run: uv run black --check .
 
-      # Perform Linting with Ruff
+      # Run code linting
       - name: Run Ruff
         run: uv run ruff check .
 
-      # Check Import Ordering with isort
+      # Check import ordering
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
-      # Execute the Django Test Suite
+      # Execute Django test suite
       - name: Run Django Tests
         run: uv run pytest
