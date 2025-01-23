@@ -1,46 +1,38 @@
-[tool.poetry]
-name = "django-template"  # Project name
-version = "0.1.0"         # Initial version of the project
-description = "A Django project template"  # Short description of the project
+[project]
+name = "django-template"
+version = "0.1.0"
+description = "A Django project template"
+readme = "README.md"
+requires-python = ">=3.13"
 authors = [
-    "Matus Kocik <matuskocik@gmail.com>"  # Author details
+    { name = "Matus Kocik", email = "matuskocik@gmail.com" }
 ]
-license = "MIT"  # Project license type
-readme = "README.md"      # Readme file for documentation
+license = "MIT"
+dependencies = [
+    "django>=5.1.5,<6.0.0",
+    "python-decouple>=3.8",
+    "psycopg[binary]>=2.9.10"
+]
 
-# Dependencies required for the project
-[tool.poetry.dependencies]
-python = ">=3.12"  # Minimum required Python version
-django = ">=5.1.5,<6.0.0"  # Django framework
-python-decouple = "^3.8"  # Manage environment variables securely
-psycopg2-binary = "^2.9.10"
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]  # Poetry's core dependency
-build-backend = "poetry.core.masonry.api"  # Backend for build system
-
-[tool.poetry.group.dev.dependencies]
-# Development dependencies
-black = "^24.10.0"  # Code formatter to enforce consistent style
-isort = "^5.13.2"   # Automatic sorting of imports
-pytest = "^8.3.4"        # Testing framework
-pytest-django = "^4.9.0" # Django-specific pytest extensions
-pre-commit = "^4.0.1"    # Pre-commit hook manager
-ruff = "^0.9.2"
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "isort>=5.13.2",
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.4",
+    "pytest-django>=4.9.0",
+    "ruff>=0.9.2",
+]
 
 [tool.black]
-# Black configuration (code formatting)
-line-length = 88  # Maximum line length, Black's default is 88.
+line-length = 88
 
 [tool.isort]
-# isort configuration (sorting imports)
-profile = "black"  # Adjust isort to work seamlessly with Black.
+profile = "black"
 
 [tool.ruff]
-# Ruff configuration (general settings)
-line-length = 88  # Maximum line length, aligned with Black and isort.
+line-length = 88
 
 [tool.ruff.lint]
-# Settings related to linting and style enforcement
-select = ["E", "F", "I"]  # Check for errors (E), formatting (F), and imports (I).
-fixable = ["I"]           # Allow Ruff to fix import sorting if needed.
+select = ["E", "F", "I"]
+fixable = ["I"]

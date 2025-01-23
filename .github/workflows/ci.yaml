@@ -13,7 +13,7 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.12", "3.13"]
+        python-version: ["3.13"]
         os: [ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
@@ -49,38 +49,38 @@ jobs:
           echo "DB_HOST=db" >> .env
           echo "DB_PORT=5432" >> .env
 
-      # Cache Poetry dependencies for faster builds
-      - name: Cache Poetry Dependencies
+      # Cache UV Astral dependencies for faster builds
+      - name: Cache UV Dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ matrix.python-version }}
+          path: ~/.cache/uv
+          key: ${{ runner.os }}-uv-${{ matrix.python-version }}
           restore-keys: |
-            ${{ runner.os }}-poetry-
+            ${{ runner.os }}-uv-
 
-      # Set up project dependencies
+      # Set up project dependencies using UV Astral
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --no-root
+          pip install uv
+          uv install
 
-      # Run code quality checks
+      # Run pre-commit hooks
       - name: Run Pre-commit Hooks
-        run: poetry run pre-commit run --all-files
+        run: uv precommit run --all-files
 
       # Check code formatting
       - name: Run Black (Check Mode)
-        run: poetry run black --check .
+        run: uv run black --check .
 
       # Run code linting
       - name: Run Ruff
-        run: poetry run ruff check .
+        run: uv run ruff check .
 
       # Check import ordering
       - name: Run isort (Check Mode)
-        run: poetry run isort --check-only .
+        run: uv run isort --check-only .
 
       # Execute Django test suite
       - name: Run Django Tests
-        run: poetry run pytest
+        run: uv run pytest

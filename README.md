@@ -5,7 +5,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 ## 🚀 Features
 
 - **Django** - The web framework for building modern web applications quickly and easily.
-- **Poetry** - Simplifies dependency management and virtual environments.
+- **UV Astral** - Simplifies dependency management, virtual environments, and builds.
 - **Pre-commit hooks** - Maintains code quality by running checks automatically before commits.
 - **Python-decouple** - Helps securely manage environment variables for different environments.
 - **Black** - Auto-formats Python code to follow consistent style.
@@ -17,7 +17,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 - **PostgreSQL** - Uses PostgreSQL as the default database for all projects, powered by the modern **`psycopg`** driver.
 - **Docker for Dependencies** - Runs services like PostgreSQL in Docker for consistent environments and simplified setup.
 
-## 📋 Usage
+## 🗌 Usage
 
 1. Use this template on GitHub:
 
@@ -52,17 +52,17 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     This will start the PostgreSQL database locally. Ensure that Docker is installed and running on your machine.
 
-5. Install dependencies using Poetry:
+5. Install dependencies using UV Astral:
 
     ```bash
-    poetry install --no-root
+    uv install
     ```
 
-    **Note:** Use `poetry install --no-root` to skip installing the template as a package.
+    **Note:** UV Astral automatically creates and manages virtual environments for your project.
 
 6. **Check Python Interpreter and Environment**
 
-    After installing dependencies, verify that the correct Python interpreter is being used and that the Poetry environment is properly configured.
+    After installing dependencies, verify that the correct Python interpreter is being used and that the UV Astral environment is properly configured.
 
     To check your Python version:
 
@@ -70,16 +70,16 @@ A simple and ready-to-use template for starting new Django projects with modern 
     python --version
     ```
 
-    To check the Poetry environment and interpreter:
+    To check the UV environment and interpreter:
 
     ```bash
-    poetry env info
+    uv info
     ```
 
-    Ensure that the `Executable` path points to the Python interpreter inside your Poetry-managed virtual environment. If not, activate the correct environment:
+    Ensure that the `Python` path points to the interpreter inside your UV-managed virtual environment. If not, activate the correct environment using:
 
     ```bash
-    poetry env use <path-to-python>
+    uv activate
     ```
 
 7. **GitHub Actions Secrets:**
@@ -113,7 +113,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
 
     ```bash
-    poetry run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    uv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
     ```
 
     This command will generate a new secret key each time it is run. Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
@@ -131,19 +131,19 @@ A simple and ready-to-use template for starting new Django projects with modern 
     1. Install pre-commit hooks:
 
         ```bash
-        poetry run pre-commit install
+        uv precommit install
         ```
 
     2. Auto-update to the latest versions of the hooks:
 
         ```bash
-        poetry run pre-commit autoupdate
+        uv precommit autoupdate
         ```
 
     3. Run pre-commit hooks on all files to ensure compliance:
 
         ```bash
-        poetry run pre-commit run --all-files
+        uv precommit run --all-files
         ```
 
 10. Start the Django project:
@@ -156,7 +156,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     ```bash
     mkdir src/apps/my_app
-    poetry run python src/manage.py startapp my_app src/apps/my_app
+    uv run python src/manage.py startapp my_app src/apps/my_app
     ```
 
     After creating the app, follow these steps:
@@ -188,8 +188,8 @@ A simple and ready-to-use template for starting new Django projects with modern 
     After creating a new app and adding models, apply the migrations to update the database schema:
 
     ```bash
-    poetry run python src/manage.py makemigrations
-    poetry run python src/manage.py migrate
+    uv run python src/manage.py makemigrations
+    uv run python src/manage.py migrate
     ```
 
 13. Run the development server:
@@ -197,52 +197,26 @@ A simple and ready-to-use template for starting new Django projects with modern 
     Start the Django development server to test your changes:
 
     ```bash
-    poetry run python src/manage.py runserver
+    uv run python src/manage.py runserver
     ```
 
     The server will be available at [http://localhost:8000](http://localhost:8000).
 
-    **Note:** These steps are the same as those outlined earlier for starting the project but are repeated here for convenience when adding new apps.
+14. (Optional) Generate `requirements.txt`:
 
-14. (Optional) Set up pre-commit hooks:
+    If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from the UV environment:
 
-    Pre-commit hooks help maintain code quality by automating checks before each commit. These hooks include:
+    ```bash
+    uv export > requirements.txt
+    ```
 
-    - Formatting code with **Black**.
-    - Sorting imports with **isort**.
-    - Linting and ensuring code quality using **Ruff** (configured via `[lint]` section in `pyproject.toml`).
-    - Running automated tests with **Pytest**.
-
-    To set up and run pre-commit hooks, follow the steps outlined in the section "Set up and update pre-commit hooks."
-
-15. (Optional) Generate `requirements.txt`:
-
-    If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from `pyproject.toml` using Poetry.
-
-    1. **To include package hashes (recommended for security):**
-
-        ```bash
-        poetry export --format=requirements.txt --output=requirements.txt
-        ```
-
-    2. **To generate a simpler `requirements.txt` without hashes:**
-
-        ```bash
-        poetry export --without-hashes --output=requirements.txt
-        ```
-
-    **Notes:**
-    - Use `requirements.txt` if deploying to platforms that don't support Poetry (e.g., some server environments or third-party tools).
-    - Keep your `requirements.txt` updated whenever you add or update dependencies in `pyproject.toml`.
-    - Including hashes enhances security by ensuring exact dependency versions during installation.
-
-16. (Optional) Set up VS Code configuration:
+15. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, this template provides recommended settings for formatting, linting, and debugging.
 
     To get started, follow the instructions in the [Optional: VS Code Settings](#optional-vs-code-settings) section below.
 
-17. (Optional) Learn about the CI/CD Workflow:
+16. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
@@ -253,7 +227,7 @@ This template uses **GitHub Actions** to automate tasks like testing, linting, a
 ### Workflow Steps
 
 1. **Install Dependencies**
-   Installs dependencies using Poetry with the `--no-root` flag to avoid packaging the template itself.
+   Installs dependencies using UV Astral.
 2. **Run Black**
    Ensures code adheres to consistent formatting.
 3. **Run Ruff**
@@ -264,63 +238,23 @@ This template uses **GitHub Actions** to automate tasks like testing, linting, a
 5. **Run Pytest**
    Executes all unit tests.
 
-### How to View CI/CD Status
-
-1. Go to the **Actions** tab in this repository.
-2. Click on the latest workflow run for detailed logs and results.
-
-If any step fails, logs in **GitHub Actions** will help you diagnose and fix the issue.
-
-### Managing `.env` in CI/CD
-
-To securely manage environment variables required by your workflow, use **GitHub Secrets**. Secrets ensure that sensitive information, such as API keys and database credentials, is not exposed in your version control.
-
-1. Set up the necessary secrets in your repository's **Settings > Secrets and variables > Actions > Secrets**.
-   Add the following secrets:
-   - `SECRET_KEY` - The Django secret key.
-   - `POSTGRES_DB` - Name of the PostgreSQL database.
-   - `POSTGRES_USER` - Username for the PostgreSQL database.
-   - `POSTGRES_PASSWORD` - Password for the PostgreSQL database.
-   - Any other necessary variables (e.g., email settings).
-
-2. Update your workflow file to reference these secrets and dynamically create a `.env` file during the workflow execution. For example:
-
-    ```yaml
-    - name: Set Environment Variables from Secrets
-      run: |
-        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-        echo "ALLOWED_HOSTS=127.0.0.1,localhost" >> .env
-        echo "DB_ENGINE=django.db.backends.postgresql" >> .env
-        echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
-        echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
-        echo "DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-        echo "DB_HOST=localhost" >> .env  # Use 'localhost' for local development or 'db' if using Docker Compose
-        echo "DB_PORT=5432" >> .env
-        echo "DEBUG=True" >> .env  # Set DEBUG False for production
-    ```
-
-**Note:** Avoid committing the `.env` file or any sensitive data directly to version control. Use **GitHub Secrets** for secure storage and injection during workflows.
-
 ## 🧪 Running Tests
 
 To run all tests in the project, use:
 
 ```bash
-poetry run pytest
+uv run pytest
 ```
 
 Test File Structure
 
-Test files are located in the tests/ directory. Example:
+Test files are located in the `tests/` directory. Example:
 
 ```plaintext
 tests/
 ├── conftest.py        # Shared fixtures for tests
 ├── test_sample.py     # Example test file
 ```
-
-- conftest.py: Contains reusable fixtures for tests.
-- test_sample.py: A simple test file to demonstrate how tests are structured.
 
 ## Optional: VS Code Settings
 
@@ -362,7 +296,7 @@ The following example configuration enables Ruff as the default formatter, organ
 }
 ```
 
-## 🛠 Tools and Dependencies
+## ⚙️ Tools and Dependencies
 
 ### Core Tools
 
@@ -370,8 +304,8 @@ The following example configuration enables Ruff as the default formatter, organ
   [Documentation](https://docs.python.org/) | [GitHub](https://github.com/python/cpython)
 - **Django** - >=5.1.5, <6.0.0
   [Documentation](https://docs.djangoproject.com/) | [GitHub](https://github.com/django/django)
-- **Poetry** - Manages dependencies and virtual environments.
-  [Documentation](https://python-poetry.org/docs/) | [GitHub](https://github.com/python-poetry/poetry)
+- **UV Astral** - Manages dependencies, environments, and builds.
+  [Documentation](https://docs.astral.sh/uv/) | [GitHub](https://github.com/astra.sh/uv)
 
 ### Development Tools
 
@@ -387,11 +321,6 @@ The following example configuration enables Ruff as the default formatter, organ
   [Documentation](https://docs.docker.com/) | [GitHub](https://github.com/docker)
 - **Pre-commit hooks** - Runs code checks automatically before commits.
   [Documentation](https://pre-commit.com/) | [GitHub](https://github.com/pre-commit/pre-commit)
-
-### CI/CD Tools
-
-- **GitHub Actions** - Automates workflows for testing, linting, and CI/CD.
-  [Documentation](https://docs.github.com/en/actions) | [GitHub](https://github.com/features/actions)
 
 ### Database Tools
 
@@ -458,7 +387,3 @@ line-length = 88
 select = ["E", "F", "I"]  # Check for errors (E), formatting (F), and imports (I).
 fixable = ["I"]           # Allow Ruff to fix import sorting if needed.
 ```
-
-## 📄 License
-
-This project is licensed under the MIT License.
