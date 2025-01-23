@@ -59,11 +59,16 @@ jobs:
             ${{ runner.os }}-uv-
 
       # Set up project dependencies using UV Astral
-      - name: Install Dependencies
+      - name: Install UV Astral
         run: |
           python -m pip install --upgrade pip
           pip install uv
-          uv pip install --requirements pyproject.toml
+
+      - name: Create Virtual Environment
+        run: uv venv create
+
+      - name: Install Dependencies
+        run: uv pip install --requirements pyproject.toml
 
       # Run pre-commit hooks
       - name: Run Pre-commit Hooks
