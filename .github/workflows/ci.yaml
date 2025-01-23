@@ -64,8 +64,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install uv
 
-      - name: Create Virtual Environment
-        run: uv venv create
+      - name: Create and Use Virtual Environment
+        run: |
+          uv venv create
+          uv venv use
 
       - name: Install Dependencies
         run: uv pip install --requirements pyproject.toml
