@@ -73,13 +73,9 @@ jobs:
       - name: Sync Dependencies with uv.lock
         run: uv sync
 
-      # Install Dependencies from requirements-dev.txt
-      - name: Install Development Dependencies
-        run: uv pip install --requirement requirements-dev.txt
-
       # Run pre-commit hooks
       - name: Run Pre-commit Hooks
-        run: uv run precommit run --all-files
+        run: uv run pre-commit run --all-files
 
       # Check code formatting
       - name: Run Black (Check Mode)
