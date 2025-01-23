@@ -192,13 +192,80 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     The server will be available at [http://localhost:8000](http://localhost:8000).
 
-14. (Optional) Generate `requirements.txt`:
+14. (Optional) Generate `requirements.txt` and `requirements-dev.txt`:
 
-    If you need a `requirements.txt` file for deployment or compatibility with certain tools, you can generate it from the UV environment:
+    To manage dependencies for production and development separately, use `pip-tools` via UV Astral:
 
-    ```bash
-    uv export > requirements.txt
-    ```
+    - Create input files:
+      - `requirements.in` for production dependencies.
+      - `requirements-dev.in` for development dependencies (including production).
+
+      Example:
+      - `requirements.in`:
+
+        ```plaintext
+        django>=5.1.5,<6.0.0
+        python-decouple>=3.8
+        psycopg[binary]>=2.9.10
+        ```
+
+      - `requirements-dev.in`:
+
+        ```plaintext
+        -r requirements.in
+        pip-tools>=6.12.3
+        black>=24.10.0
+        isort>=5.13.2
+        pre-commit>=4.1.0
+        pytest>=8.3.4
+        pytest-django>=4.9.0
+        ruff>=0.9.2
+        ```
+
+    - Generate the lock files:
+
+      - For production (with secure hashes):
+
+        ```bash
+        uv pip-compile requirements.in --generate-hashes --output-file requirements.txt
+        ```
+
+      - For development (with secure hashes):
+
+        ```bash
+        uv pip-compile requirements-dev.in --generate-hashes --output-file requirements-dev.txt
+        ```
+
+      *(Pridal som `--generate-hashes`, aby sa generovali bezpečnostné hashe pre každú závislosť.)*
+
+      These commands generate the final `requirements.txt` and `requirements-dev.txt` files with locked versions and secure hashes for all dependencies.
+
+    - Install dependencies (validating hashes during installation):
+      - For production:
+
+        ```bash
+        uv pip install --requirement requirements.txt --require-hashes
+        ```
+
+      - For development (includes production):
+
+        ```bash
+        uv pip install --requirement requirements-dev.txt --require-hashes
+        ```
+
+    - Generate the UV lock file:
+
+      UV Astral generates a `uv.lock` file to capture the exact dependency versions and hashes. Run the following command to create or update the lock file:
+
+      ```bash
+      uv lock
+      ```
+
+      ```bash
+      uv sync
+      ```
+
+    This approach allows you to keep production and development dependencies clearly separated, while ensuring reproducibility and security through version locking.
 
 15. (Optional) Set up VS Code configuration:
 
@@ -307,6 +374,8 @@ The following example configuration enables Ruff as the default formatter, organ
   [Documentation](https://pycqa.github.io/isort/) | [GitHub](https://github.com/PyCQA/isort)
 - **pytest** - Framework for running unit tests.
   [Documentation](https://docs.pytest.org/) | [GitHub](https://github.com/pytest-dev/pytest)
+- **pip-tools** - Manages `.in` and `.txt` files for dependencies.
+  [Documentation](https://pip-tools.readthedocs.io/) | [GitHub](https://github.com/jazzband/pip-tools)
 - **Docker** - Runs dependencies like PostgreSQL in isolated containers.
   [Documentation](https://docs.docker.com/) | [GitHub](https://github.com/docker)
 - **Pre-commit hooks** - Runs code checks automatically before commits.

@@ -13,14 +13,14 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.13"]
-        os: [ubuntu-latest]
+        python-version: ["3.13"] # Specify Python version(s) to test
+        os: [ubuntu-latest] # Specify OS environment (Ubuntu in this case)
 
     runs-on: ${{ matrix.os }}
 
     services:
       db:
-        image: postgres:15-alpine
+        image: postgres:15-alpine # Use PostgreSQL 15 with Alpine base image
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -46,7 +46,7 @@ jobs:
           echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
           echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "DB_HOST=db" >> .env
+          echo "DB_HOST=db" >> .env  # Use 'db' for Docker network
           echo "DB_PORT=5432" >> .env
 
       # Cache UV Astral dependencies for faster builds
@@ -69,8 +69,13 @@ jobs:
           uv venv create
           uv venv use
 
-      - name: Install Dependencies
-        run: uv pip install --requirements pyproject.toml
+      # Sync dependencies with uv.lock (optional step)
+      - name: Sync Dependencies with uv.lock
+        run: uv sync
+
+      # Install Dependencies from requirements-dev.txt
+      - name: Install Development Dependencies
+        run: uv pip install --requirement requirements-dev.txt
 
       # Run pre-commit hooks
       - name: Run Pre-commit Hooks
