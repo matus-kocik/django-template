@@ -73,6 +73,10 @@ jobs:
       - name: Sync Dependencies with uv.lock
         run: uv sync
 
+      # Update pre-commit hooks to avoid deprecated stages
+      - name: Update Pre-commit Hooks
+        run: uv run pre-commit autoupdate
+
       # Run pre-commit hooks
       - name: Run Pre-commit Hooks
         run: uv run pre-commit run --all-files
