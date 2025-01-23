@@ -55,14 +55,14 @@ A simple and ready-to-use template for starting new Django projects with modern 
 5. Install dependencies using UV Astral:
 
     ```bash
-    uv install
+    uv pip install --requirements pyproject.toml
     ```
 
-    **Note:** UV Astral automatically creates and manages virtual environments for your project.
+    **Note:** UV Astral automatically creates and manages virtual environments for your project. You don’t need to activate it manually.
 
 6. **Check Python Interpreter and Environment**
 
-    After installing dependencies, verify that the correct Python interpreter is being used and that the UV Astral environment is properly configured.
+    After installing dependencies, verify that the correct Python interpreter is being used.
 
     To check your Python version:
 
@@ -70,17 +70,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
     python --version
     ```
 
-    To check the UV environment and interpreter:
-
-    ```bash
-    uv info
-    ```
-
-    Ensure that the `Python` path points to the interpreter inside your UV-managed virtual environment. If not, activate the correct environment using:
-
-    ```bash
-    uv activate
-    ```
+    UV Astral automatically manages your virtual environment. No manual activation is required.
 
 7. **GitHub Actions Secrets:**
 
