@@ -13,14 +13,14 @@ jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.13"] # Specify Python version(s) to test
-        os: [ubuntu-latest] # Specify OS environment (Ubuntu in this case)
+        python-version: ["3.13"]  # Specify Python version(s) to test
+        os: [ubuntu-latest]       # Specify OS environment (Ubuntu in this case)
 
     runs-on: ${{ matrix.os }}
 
     services:
       db:
-        image: postgres:15-alpine # Use PostgreSQL 15 with Alpine base image
+        image: postgres:15-alpine  # Use PostgreSQL 15 with Alpine base image
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -39,14 +39,14 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      # Set Environment Variables
+      # Set Environment Variables for Django and PostgreSQL
       - name: Set Environment Variables
         run: |
           echo "DB_ENGINE=django.db.backends.postgresql" >> .env
           echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
           echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "DB_HOST=db" >> .env  # Use 'db' for Docker network
+          echo "DB_HOST=db" >> .env
           echo "DB_PORT=5432" >> .env
 
       # Cache UV Astral dependencies for faster builds
@@ -58,41 +58,43 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-uv-
 
-      # Set up project dependencies using UV Astral
+      # Install UV Astral to manage the project
       - name: Install UV Astral
         run: |
           python -m pip install --upgrade pip
           pip install uv
 
+      # Create and Use Virtual Environment with UV Astral
       - name: Create and Use Virtual Environment
         run: |
           uv venv create
           uv venv use
 
-      # Sync dependencies with uv.lock (optional step)
+      # Sync dependencies with uv.lock if it exists
       - name: Sync Dependencies with uv.lock
+        if: ${{ inputs.fileExists('uv.lock') }}  # Optional, checks if uv.lock exists
         run: uv sync
 
-      # Install Dependencies from requirements-dev.txt
+      # Install Dependencies for Development
       - name: Install Development Dependencies
         run: uv pip install --requirement requirements-dev.txt
 
-      # Run pre-commit hooks
+      # Run Pre-commit Hooks to Ensure Code Quality
       - name: Run Pre-commit Hooks
-        run: uv precommit run --all-files
+        run: uv run pre-commit run --all-files
 
-      # Check code formatting
+      # Check Python Code Formatting with Black
       - name: Run Black (Check Mode)
         run: uv run black --check .
 
-      # Run code linting
+      # Perform Linting with Ruff
       - name: Run Ruff
         run: uv run ruff check .
 
-      # Check import ordering
+      # Check Import Ordering with isort
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
-      # Execute Django test suite
+      # Execute the Django Test Suite
       - name: Run Django Tests
         run: uv run pytest

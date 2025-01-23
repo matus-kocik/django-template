@@ -227,16 +227,14 @@ A simple and ready-to-use template for starting new Django projects with modern 
       - For production (with secure hashes):
 
         ```bash
-        uv pip-compile requirements.in --generate-hashes --output-file requirements.txt
+        uv run pip-compile requirements.in --generate-hashes --output-file requirements.txt
         ```
 
       - For development (with secure hashes):
 
         ```bash
-        uv pip-compile requirements-dev.in --generate-hashes --output-file requirements-dev.txt
+        uv run pip-compile requirements-dev.in --generate-hashes --output-file requirements-dev.txt
         ```
-
-      *(Pridal som `--generate-hashes`, aby sa generovali bezpečnostné hashe pre každú závislosť.)*
 
       These commands generate the final `requirements.txt` and `requirements-dev.txt` files with locked versions and secure hashes for all dependencies.
 
