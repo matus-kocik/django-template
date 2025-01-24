@@ -41,3 +41,6 @@ repos:
     hooks:
       # Updates uv.lock if pyproject.toml changes
       - id: uv-lock
+      # Exports requirements.txt with hashes
+      - id: uv-export
+        args: ["--output-file", "requirements.txt"]
