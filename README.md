@@ -17,7 +17,40 @@ A simple and ready-to-use template for starting new Django projects with modern 
 - **PostgreSQL** - Uses PostgreSQL as the default database for all projects, powered by the modern **`psycopg`** driver.
 - **Docker for Dependencies** - Runs services like PostgreSQL in Docker for consistent environments and simplified setup.
 
+## 📦 Installing UV Astral
+
+Before using this template, you need to install **UV Astral**, a modern dependency and environment management tool.
+
+### Installation
+
+Install UV Astral using a package manager:
+
+- **Homebrew** (recommended for macOS/Linux):
+
+    ```bash
+    brew install uv
+    ```
+
+- **Windows** (via Scoop):
+
+    ```bash
+    scoop install uv
+    ```
+
+For detailed instructions and troubleshooting, refer to the [UV Astral Documentation](https://docs.astral.sh/uv/).
+
 ## Initial Setup for New Projects
+
+1. Use this template on GitHub:
+
+    You can create a new repository using this template by clicking the "Use this template" button on the GitHub page of this repository.
+
+2. Clone this repository:
+
+    ```bash
+    git clone https://github.com/matus-kocik/django-template.git
+    cd django-template
+    ```
 
 After creating a new repository using this template, follow these steps to customize it for your project:
 
@@ -68,42 +101,9 @@ After creating a new repository using this template, follow these steps to custo
 - This template is designed to streamline the setup of Django projects with modern tools.
 - If you encounter any issues, refer to the template's documentation or open an issue on the original repository.
 
-## 📦 Installing UV Astral
-
-Before using this template, you need to install **UV Astral**, a modern dependency and environment management tool.
-
-### Installation
-
-Install UV Astral using a package manager:
-
-- **Homebrew** (recommended for macOS/Linux):
-
-    ```bash
-    brew install uv
-    ```
-
-- **Windows** (via Scoop):
-
-    ```bash
-    scoop install uv
-    ```
-
-For detailed instructions and troubleshooting, refer to the [UV Astral Documentation](https://docs.astral.sh/uv/).
-
 ## 🗌 Usage
 
-1. Use this template on GitHub:
-
-    You can create a new repository using this template by clicking the "Use this template" button on the GitHub page of this repository.
-
-2. Clone this repository:
-
-    ```bash
-    git clone https://github.com/matus-kocik/django-template.git
-    cd django-template
-    ```
-
-3. Create a `.env` file:
+1. Create a `.env` file:
 
     Copy the `.env.example` file to `.env` and configure the environment variables:
 
@@ -115,7 +115,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     **Important:** Ensure that your `.env` file is listed in `.gitignore` to prevent it from being committed to the repository. This file contains sensitive information and should always remain private.
 
-4. Start Docker services for dependencies:
+2. Start Docker services for dependencies:
 
     Use Docker Compose to start the PostgreSQL database:
 
@@ -125,7 +125,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     This will start the PostgreSQL database locally. Ensure that Docker is installed and running on your machine.
 
-5. Install dependencies using UV Astral:
+3. Install dependencies using UV Astral:
 
     ```bash
     uv sync
@@ -142,7 +142,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     This approach ensures compatibility with tools or environments that rely on `requirements.txt` while maintaining reproducibility through the `uv.lock` file.
 
-6. **Check Python Interpreter and Environment**
+4. **Check Python Interpreter and Environment**
 
     After installing dependencies, verify that the correct Python interpreter is being used.
 
@@ -154,7 +154,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     UV Astral automatically manages your virtual environment. No manual activation is required.
 
-7. **GitHub Actions Secrets:**
+5. **GitHub Actions Secrets:**
 
     For CI/CD workflows, you need to set up secrets in GitHub Actions to avoid exposing sensitive information. Add the following secrets in your repository's **Settings > Secrets and variables > Actions > Secrets**:
 
@@ -180,7 +180,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
         echo "DEBUG=True" >> .env  # Set DEBUG False for production
     ```
 
-8. Generate a new `SECRET_KEY`:
+6. Generate a new `SECRET_KEY`:
 
     You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
 
@@ -196,7 +196,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     **Note:** Always keep your `SECRET_KEY` safe and never share it publicly. For CI/CD workflows, store it securely in GitHub Actions Secrets.
 
-9. Set up and update pre-commit hooks:
+7. Set up and update pre-commit hooks:
 
     Pre-commit hooks help maintain code quality by running checks automatically. Follow these steps to set up and update them:
 
@@ -218,11 +218,11 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
         uv run pre-commit run --all-files
         ```
 
-10. Start the Django project:
+8. Start the Django project:
 
     The template includes a pre-configured Django project named `src/config`.
 
-11. Create a new app:
+9. Create a new app:
 
     To create a new app, use the `startapp` command and specify the app name and its location within the `src/apps` directory. For example, to create an app named `my_app`:
 
@@ -255,7 +255,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
            name = 'apps.my_app'
        ```
 
-12. Apply migrations:
+10. Apply migrations:
 
     After creating a new app and adding models, apply the migrations to update the database schema:
 
@@ -264,7 +264,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
     uv run python src/manage.py migrate
     ```
 
-13. Run the development server:
+11. Run the development server:
 
     Start the Django development server to test your changes:
 
@@ -274,13 +274,13 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     The server will be available at [http://localhost:8000](http://localhost:8000).
 
-14. (Optional) Set up VS Code configuration:
+12. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, this template provides recommended settings for formatting, linting, and debugging.
 
     To get started, follow the instructions in the [Optional: VS Code Settings](#optional-vs-code-settings) section below.
 
-15. (Optional) Learn about the CI/CD Workflow:
+13. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
