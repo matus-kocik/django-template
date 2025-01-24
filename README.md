@@ -233,6 +233,48 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
+## Initial Setup for New Projects
+
+After creating a new repository using this template, follow these steps to customize it for your project:
+
+1. **Rename the Project:**
+   Update the project name and references throughout the repository:
+   - `pyproject.toml`:
+
+     ```toml
+     [project]
+     name = "your-new-project-name"
+     ```
+
+   - `.github/workflows/ci.yml`:
+     Replace occurrences of `django-template` with your new project name.
+
+2. **Update the README:**
+   - Replace the title and description at the top of the README file to match your new project's purpose.
+   - Remove or adjust template-specific sections that no longer apply.
+
+3. **Check Other References:**
+   - Search the repository for any mentions of `django-template` and replace them with your new project's name.
+   - This includes code comments, configuration files, and documentation.
+
+4. **Verify CI/CD:**
+   - Ensure that the GitHub Actions workflow (`ci.yml`) aligns with your new project setup.
+
+5. **Update `.env.example`:**
+   - Customize the `.env.example` file with environment variables specific to your new project.
+
+6. **Run Pre-commit:**
+   - Run pre-commit hooks to format and lint your changes:
+
+     ```bash
+     uv run pre-commit run --all-files
+     ```
+
+### Additional Notes
+
+- This template is designed to streamline the setup of Django projects with modern tools.
+- If you encounter any issues, refer to the template's documentation or open an issue on the original repository.
+
 ## Continuous Integration and Deployment (CI/CD)
 
 This template uses **GitHub Actions** to automate tasks like testing, linting, and dependency management for every `push` or `pull request` to the `main` branch.
