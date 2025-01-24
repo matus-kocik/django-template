@@ -104,6 +104,7 @@ After creating a new repository using this template, follow these steps to custo
     Update the database credentials and other settings in the `.env` file if necessary.
 
     **Important:** Ensure that your `.env` file is listed in `.gitignore` to prevent it from being committed to the repository. This file contains sensitive information and should always remain private.
+    **Note:** After setting up your .env file, you can safely delete the .env.example file to avoid confusion.
 
 2. Start Docker services for dependencies:
 
@@ -349,6 +350,8 @@ The following example configuration enables Ruff as the default formatter, organ
     "python.testing.pytestEnabled": true
 }
 ```
+
+**Note:** After setting up your .vscode/settings.json / .vscode/launch.json files, you can safely delete the .vscode/settings.json.example / .vscode/launch.json.example file to avoid confusion.
 
 ## ⚙️ Tools and Dependencies
 
