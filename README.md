@@ -126,7 +126,7 @@ After creating a new repository using this template, follow these steps to custo
     If you need to install dependencies using `pip` for other environments, you can generate and use the `requirements.txt` file:
 
     ```bash
-    uv export --output-file requirements.txt --with-hashes
+    uv export --output-file requirements.txt
     pip install -r requirements.txt
     ```
 
