@@ -34,3 +34,19 @@ repos:
       # Fixes import issues only
       - id: ruff
         args: ["--select", "I", "--fix"]  # Ensures imports are sorted correctly
+
+  # UV-specific hooks
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.5.24
+    hooks:
+      # Updates uv.lock if pyproject.toml changes
+      - id: uv-lock
+      # Exports requirements.txt
+      - id: uv-export
+      # Compiles requirements.txt
+      - id: pip-compile
+        args: [requirements.in, -o, requirements.txt]
+      # Compiles requirements-dev.txt
+      - id: pip-compile
+        args: [requirements-dev.in, -o, requirements-dev.txt]
+        files: ^requirements-dev\.(in|txt)$

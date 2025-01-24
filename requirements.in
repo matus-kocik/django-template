@@ -1,3 +1,0 @@
-django==5.1.5
-python-decouple==3.8
-psycopg==3.2.4
