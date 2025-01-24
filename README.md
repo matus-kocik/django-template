@@ -144,7 +144,23 @@ After creating a new repository using this template, follow these steps to custo
 
     UV Astral automatically manages your virtual environment. No manual activation is required.
 
-5. **GitHub Actions Secrets:**
+5. Generate a new `SECRET_KEY`:
+
+    You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
+
+    ```bash
+    uv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    ```
+
+    This command will generate a new secret key each time it is run. Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
+
+    ```env
+    SECRET_KEY=your-new-secret-key
+    ```
+
+    **Note:** Always keep your `SECRET_KEY` safe and never share it publicly. For CI/CD workflows, store it securely in GitHub Actions Secrets.
+
+6. **GitHub Actions Secrets:**
 
     For CI/CD workflows, you need to set up secrets in GitHub Actions to avoid exposing sensitive information. Add the following secrets in your repository's **Settings > Secrets and variables > Actions > Secrets**:
 
@@ -169,22 +185,6 @@ After creating a new repository using this template, follow these steps to custo
         echo "DB_PORT=5432" >> .env
         echo "DEBUG=True" >> .env  # Set DEBUG False for production
     ```
-
-6. Generate a new `SECRET_KEY`:
-
-    You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
-
-    ```bash
-    uv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
-    ```
-
-    This command will generate a new secret key each time it is run. Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
-
-    ```env
-    SECRET_KEY=your-new-secret-key
-    ```
-
-    **Note:** Always keep your `SECRET_KEY` safe and never share it publicly. For CI/CD workflows, store it securely in GitHub Actions Secrets.
 
 7. Set up and update pre-commit hooks:
 
