@@ -86,16 +86,6 @@ After creating a new repository using this template, follow these steps to custo
 4. **Verify CI/CD:**
    - Ensure that the GitHub Actions workflow (`ci.yml`) aligns with your new project setup.
 
-5. **Update `.env.example`:**
-   - Customize the `.env.example` file with environment variables specific to your new project.
-
-6. **Run Pre-commit:**
-   - Run pre-commit hooks to format and lint your changes:
-
-     ```bash
-     uv run pre-commit run --all-files
-     ```
-
 ### Additional Notes
 
 - This template is designed to streamline the setup of Django projects with modern tools.
