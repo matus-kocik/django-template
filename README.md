@@ -17,6 +17,28 @@ A simple and ready-to-use template for starting new Django projects with modern 
 - **PostgreSQL** - Uses PostgreSQL as the default database for all projects, powered by the modern **`psycopg`** driver.
 - **Docker for Dependencies** - Runs services like PostgreSQL in Docker for consistent environments and simplified setup.
 
+## 📦 Installing UV Astral
+
+Before using this template, you need to install **UV Astral**, a modern dependency and environment management tool.
+
+### Installation
+
+Install UV Astral using a package manager:
+
+- **Homebrew** (recommended for macOS/Linux):
+
+    ```bash
+    brew install uv
+    ```
+
+- **Windows** (via Scoop):
+
+    ```bash
+    scoop install uv
+    ```
+
+For detailed instructions and troubleshooting, refer to the [UV Astral Documentation](https://docs.astral.sh/uv/).
+
 ## 🗌 Usage
 
 1. Use this template on GitHub:
@@ -55,10 +77,19 @@ A simple and ready-to-use template for starting new Django projects with modern 
 5. Install dependencies using UV Astral:
 
     ```bash
-    uv pip install --requirements pyproject.toml
+    uv sync
     ```
 
-    **Note:** UV Astral automatically creates and manages virtual environments for your project. You don’t need to activate it manually.
+    **Note:** UV Astral uses the `uv.lock` file to ensure reproducible builds and automatically manages virtual environments for your project. You don’t need to activate it manually.
+
+    If you need to install dependencies using `pip` for other environments, you can generate and use the `requirements.txt` file:
+
+    ```bash
+    uv export --output-file requirements.txt --with-hashes
+    pip install -r requirements.txt
+    ```
+
+    This approach ensures compatibility with tools or environments that rely on `requirements.txt` while maintaining reproducibility through the `uv.lock` file.
 
 6. **Check Python Interpreter and Environment**
 
@@ -121,19 +152,19 @@ A simple and ready-to-use template for starting new Django projects with modern 
     1. Install pre-commit hooks:
 
         ```bash
-        uv precommit install
+        uv run pre-commit install
         ```
 
     2. Auto-update to the latest versions of the hooks:
 
         ```bash
-        uv precommit autoupdate
+        uv run pre-commit autoupdate
         ```
 
     3. Run pre-commit hooks on all files to ensure compliance:
 
         ```bash
-        uv precommit run --all-files
+        uv run pre-commit run --all-files
         ```
 
 10. Start the Django project:
@@ -192,86 +223,13 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
     The server will be available at [http://localhost:8000](http://localhost:8000).
 
-14. (Optional) Generate `requirements.txt` and `requirements-dev.txt`:
-
-    To manage dependencies for production and development separately, use `pip-tools` via UV Astral:
-
-    - Create input files:
-      - `requirements.in` for production dependencies.
-      - `requirements-dev.in` for development dependencies (including production).
-
-      Example:
-      - `requirements.in`:
-
-        ```plaintext
-        django>=5.1.5,<6.0.0
-        python-decouple>=3.8
-        psycopg[binary]>=2.9.10
-        ```
-
-      - `requirements-dev.in`:
-
-        ```plaintext
-        -r requirements.in
-        pip-tools>=6.12.3
-        black>=24.10.0
-        isort>=5.13.2
-        pre-commit>=4.1.0
-        pytest>=8.3.4
-        pytest-django>=4.9.0
-        ruff>=0.9.2
-        ```
-
-    - Generate the lock files:
-
-      - For production (with secure hashes):
-
-        ```bash
-        uv run pip-compile requirements.in --generate-hashes --output-file requirements.txt
-        ```
-
-      - For development (with secure hashes):
-
-        ```bash
-        uv run pip-compile requirements-dev.in --generate-hashes --output-file requirements-dev.txt
-        ```
-
-      These commands generate the final `requirements.txt` and `requirements-dev.txt` files with locked versions and secure hashes for all dependencies.
-
-    - Install dependencies (validating hashes during installation):
-      - For production:
-
-        ```bash
-        uv pip install --requirement requirements.txt --require-hashes
-        ```
-
-      - For development (includes production):
-
-        ```bash
-        uv pip install --requirement requirements-dev.txt --require-hashes
-        ```
-
-    - Generate the UV lock file:
-
-      UV Astral generates a `uv.lock` file to capture the exact dependency versions and hashes. Run the following command to create or update the lock file:
-
-      ```bash
-      uv lock
-      ```
-
-      ```bash
-      uv sync
-      ```
-
-    This approach allows you to keep production and development dependencies clearly separated, while ensuring reproducibility and security through version locking.
-
-15. (Optional) Set up VS Code configuration:
+14. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, this template provides recommended settings for formatting, linting, and debugging.
 
     To get started, follow the instructions in the [Optional: VS Code Settings](#optional-vs-code-settings) section below.
 
-16. (Optional) Learn about the CI/CD Workflow:
+15. (Optional) Learn about the CI/CD Workflow:
 
     See the [Continuous Integration and Deployment (CI/CD)](#continuous-integration-and-deployment-cicd) section for details.
 
