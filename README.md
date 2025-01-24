@@ -39,7 +39,7 @@ Install UV Astral using a package manager:
 
 For detailed instructions and troubleshooting, refer to the [UV Astral Documentation](https://docs.astral.sh/uv/).
 
-## Initial Setup for New Projects
+## 🛠️ Initial Setup for New Projects
 
 1. Use this template on GitHub:
 
