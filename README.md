@@ -222,7 +222,26 @@ After creating a new repository using this template, follow these steps to custo
 
     The template includes a pre-configured Django project named `src/config`.
 
-9. Create a new app:
+9. Apply migrations:
+
+    After creating a new app and adding models, apply the migrations to update the database schema:
+
+    ```bash
+    uv run python src/manage.py makemigrations
+    uv run python src/manage.py migrate
+    ```
+
+10. Run the development server:
+
+    Start the Django development server to test your changes:
+
+    ```bash
+    uv run python src/manage.py runserver
+    ```
+
+    The server will be available at [http://localhost:8000](http://localhost:8000).
+
+11. Create a new app:
 
     To create a new app, use the `startapp` command and specify the app name and its location within the `src/apps` directory. For example, to create an app named `my_app`:
 
@@ -255,24 +274,6 @@ After creating a new repository using this template, follow these steps to custo
            name = 'apps.my_app'
        ```
 
-10. Apply migrations:
-
-    After creating a new app and adding models, apply the migrations to update the database schema:
-
-    ```bash
-    uv run python src/manage.py makemigrations
-    uv run python src/manage.py migrate
-    ```
-
-11. Run the development server:
-
-    Start the Django development server to test your changes:
-
-    ```bash
-    uv run python src/manage.py runserver
-    ```
-
-    The server will be available at [http://localhost:8000](http://localhost:8000).
 
 12. (Optional) Set up VS Code configuration:
 
