@@ -48,7 +48,7 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
     - Click the "Use this template" button on the GitHub page of this repository.
     - Provide a name for your new repository, such as `your-new-project-name`.
 
-3. Clone this repository:
+2. Clone this repository:
 
     ```bash
     git clone https://github.com/<your-github-username>/your-new-project-name.git
@@ -64,7 +64,7 @@ After creating a new repository using this template, follow these steps to custo
      ```toml
      [project]
         name = "your-new-project-name"
-        version = "0.1.0"  # Adjust as needed
+        version = "0.1.0"
         description = "A brief description of your project"
         authors = [
             { name = "Your Name", email = "your-email@example.com" }
