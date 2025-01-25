@@ -127,6 +127,7 @@ After creating a new repository using this template, follow these steps to custo
 3. Install dependencies using UV Astral:
 
     ```bash
+    uv lock
     uv sync
     ```
 
