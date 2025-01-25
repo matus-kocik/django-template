@@ -274,7 +274,6 @@ After creating a new repository using this template, follow these steps to custo
            name = 'apps.my_app'
        ```
 
-
 12. (Optional) Set up VS Code configuration:
 
     If you’re using Visual Studio Code, this template provides recommended settings for formatting, linting, and debugging.
