@@ -45,22 +45,30 @@ For detailed instructions and troubleshooting, refer to the [UV Astral Documenta
 
     You can create a new repository using this template by clicking the "Use this template" button on the GitHub page of this repository.
 
-2. Clone this repository:
+    - Click the "Use this template" button on the GitHub page of this repository.
+    - Provide a name for your new repository, such as `your-new-project-name`.
+
+3. Clone this repository:
 
     ```bash
-    git clone https://github.com/matus-kocik/django-template.git
-    cd django-template
+    git clone https://github.com/<your-github-username>/your-new-project-name.git
+    cd your-new-project-name
     ```
 
 After creating a new repository using this template, follow these steps to customize it for your project:
 
-1. **Rename the Project:**
+1. **🔄 Rename and Customize the Project:**
    Update the project name and references throughout the repository:
    - `pyproject.toml`:
 
      ```toml
      [project]
-     name = "your-new-project-name"
+        name = "your-new-project-name"
+        version = "0.1.0"  # Adjust as needed
+        description = "A brief description of your project"
+        authors = [
+            { name = "Your Name", email = "your-email@example.com" }
+        ]
      ```
 
    - `.github/workflows/ci.yml`:
