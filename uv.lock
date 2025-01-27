@@ -121,7 +121,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "django", specifier = ">=5.1.5,<6.0.0" },
-    { name = "psycopg", extras = ["binary"], specifier = ">=2.9.10" },
+    { name = "psycopg", extras = ["binary"], specifier = ">=3.0.0" },
     { name = "python-decouple", specifier = ">=3.8" },
 ]
 
