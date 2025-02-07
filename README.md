@@ -6,6 +6,7 @@ A simple and ready-to-use template for starting new Django projects with modern 
 
 - **Django** - The web framework for building modern web applications quickly and easily.
 - **UV Astral** - Simplifies dependency management, virtual environments, and builds.
+- **Django Extensions** - Provides additional management commands and utilities.
 - **Pre-commit hooks** - Maintains code quality by running checks automatically before commits.
 - **Python-decouple** - Helps securely manage environment variables for different environments.
 - **Black** - Auto-formats Python code to follow consistent style.
@@ -156,19 +157,33 @@ After creating a new repository using this template, follow these steps to custo
 
 5. Generate a new `SECRET_KEY`:
 
-    You can generate a new secret key using Django's built-in functionality. Run the following command in the Django shell:
+    There are two ways to generate a new Django `SECRET_KEY`:
+
+    **Option 1: Using Django Extensions (Recommended)**
+    If you have **Django Extensions** installed, you can generate a new secret key with a simple command:
 
     ```bash
-    uv run python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+    uv run python src/manage.py generate_secret_key
     ```
 
-    This command will generate a new secret key each time it is run. Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
+    This command will generate a new secret key and output it to the console.
+    Copy the generated key and update the `SECRET_KEY` entry in your `.env` file:
 
     ```env
     SECRET_KEY=your-new-secret-key
     ```
 
-    **Note:** Always keep your `SECRET_KEY` safe and never share it publicly. For CI/CD workflows, store it securely in GitHub Actions Secrets.
+    **Option 2: Without Django Extensions**
+    If you prefer to generate the secret key without Django Extensions, you can use Python's built-in Django utility:
+
+    ```bash
+    uv run python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+    ```
+
+    This command achieves the same result by generating a random key.
+
+    **Note:** Always keep your `SECRET_KEY` safe and never share it publicly.
+    For CI/CD workflows, store it securely in GitHub Actions Secrets.
 
 6. **GitHub Actions Secrets:**
 
@@ -220,7 +235,28 @@ After creating a new repository using this template, follow these steps to custo
 
 8. Start the Django project:
 
-    The template includes a pre-configured Django project named `src/config`.
+    The template includes a pre-configured Django project located in `src/config`.
+
+    - **Ensure that `django-extensions` is enabled**:
+      Open `src/config/settings.py` and verify that it is included in the `INSTALLED_APPS` list:
+
+      ```python
+      INSTALLED_APPS = [
+          # Default Django apps
+          "django.contrib.admin",
+          "django.contrib.auth",
+          "django.contrib.contenttypes",
+          "django.contrib.sessions",
+          "django.contrib.messages",
+          "django.contrib.staticfiles",
+          # Third-party packages
+          "django_extensions",
+          # Local apps
+          "apps.my_app",
+      ]
+      ```
+
+    This ensures that Django Extensions is available for use within the project.
 
 9. Apply migrations:
 
@@ -258,7 +294,7 @@ After creating a new repository using this template, follow these steps to custo
        ```python
        INSTALLED_APPS = [
            # Other installed apps
-           'apps.my_app',
+           "apps.my_app",
        ]
        ```
 
@@ -270,8 +306,8 @@ After creating a new repository using this template, follow these steps to custo
        from django.apps import AppConfig
 
        class MyAppConfig(AppConfig):
-           default_auto_field = 'django.db.models.BigAutoField'
-           name = 'apps.my_app'
+           default_auto_field = "django.db.models.BigAutoField"
+           name = "apps.my_app"
        ```
 
 12. (Optional) Set up VS Code configuration:
@@ -375,6 +411,8 @@ The following example configuration enables Ruff as the default formatter, organ
 
 ### Development Tools
 
+- **Django Extensions** - Provides additional management commands and utilities.
+  [Documentation](https://django-extensions.readthedocs.io/en/latest/) | [GitHub](https://github.com/django-extensions/django-extensions)
 - **Black** - Formats code automatically.
   [Documentation](https://black.readthedocs.io/) | [GitHub](https://github.com/psf/black)
 - **Ruff** - A fast linter for code style and quality.

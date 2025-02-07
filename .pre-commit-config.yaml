@@ -10,21 +10,21 @@ repos:
 
   # Black - code formatter
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 25.1.0
     hooks:
       # Formats Python code automatically
       - id: black
 
   # isort - organizes imports
   - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+    rev: 6.0.0
     hooks:
       # Sorts and organizes imports in Python files
       - id: isort
 
   # Ruff - linter and formatter
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.9.3
+    rev: v0.9.5
     hooks:
       # Checks for coding issues
       - id: ruff
@@ -37,7 +37,7 @@ repos:
 
   # UV-specific hooks
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 0.5.24
+    rev: 0.5.29
     hooks:
       # Updates uv.lock if pyproject.toml changes
       - id: uv-lock
