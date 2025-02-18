@@ -150,7 +150,7 @@ After creating a new repository using this template, follow these steps to custo
     To check your Python version:
 
     ```bash
-    python --version
+    uv run python --version
     ```
 
     UV Astral automatically manages your virtual environment. No manual activation is required.
