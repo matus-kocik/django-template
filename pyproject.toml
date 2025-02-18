@@ -2,21 +2,42 @@
 name = "django-template"
 version = "0.1.0"
 description = "Add your description here"
+authors = [{ name = "Author Name" }]
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "django>=5.1.6",
-    "psycopg>=3.2.4",
     "python-decouple>=3.8",
+    "psycopg[binary]>=2.9.10",
+    "django>=5.1.6",
 ]
 
 [dependency-groups]
 dev = [
-    "black>=25.1.0",
-    "django-extensions>=3.2.3",
-    "isort>=6.0.0",
+    "pip-tools>=6.12.3",
     "pre-commit>=4.1.0",
     "pytest>=8.3.4",
     "pytest-django>=4.9.0",
+    "django-extensions>=3.2.3",
+    "black>=25.1.0",
+    "isort>=6.0.0",
     "ruff>=0.9.5",
 ]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*", "*Test"]
+python_functions = ["test_*"]
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+fixable = ["I"]
